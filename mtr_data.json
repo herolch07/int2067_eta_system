@@ -1,0 +1,99 @@
+
+{
+    "MTR_LINES": {
+        "Airport Express": {
+            "code": "AEL",
+            "stations": [
+                "HOK", "KOW", "TSY", "AIR", "AWE"
+            ]
+        },
+        "Disneyland Resort": {
+            "code": "DRL",
+            "stations": [
+                "SUN", "DIS"
+            ]
+        },
+        "East Rail": {
+            "code": "EAL",
+            "stations": [
+                "ADM", "EXC", "HUH", "MKK", "KOT", "TAW", "SHT", "FOT",
+                "RAC", "UNI", "TAP", "TWO", "FAN", "SHS", "LOW", "LMC"
+            ]
+        },
+        "Island": {
+            "code": "ISL",
+            "stations": [
+                "KET", "HKU", "SYP", "SHW", "CEN", "ADM", "WAC", "CAB",
+                "TIH", "FOH", "NOP", "QUB", "TAK", "SWH", "SKW", "HFC", "CHW"
+            ]
+        },
+        "Kwun Tong": {
+            "code": "KTL",
+            "stations": [
+                "WHA", "HOM", "YMT", "MOK", "PRE", "SKM", "KOT", "LOF",
+                "WTS", "DIH", "CHH", "KOB", "NTK", "KWT", "LAT", "YAT", "TIK"
+            ]
+        },
+        "South Island": {
+            "code": "SIL",
+            "stations": [
+                "ADM", "OCP", "WCH", "LET", "SOH"
+            ]
+        },
+        "Tseung Kwan O": {
+            "code": "TKL",
+            "stations": [
+                "NOP", "QUB", "YAT", "TIK", "TKO", "LHP", "HAH", "POA"
+            ]
+        },
+        "Tsuen Wan": {
+            "code": "TWL",
+            "stations": [
+                "CEN", "ADM", "TST", "JOR", "YMT", "MOK", "PRE", "SSP",
+                "CSW", "LCK", "MEF", "LAK", "KWF", "KWH", "TWH", "TSW"
+            ]
+        },
+        "Tuen Ma": {
+            "code": "TML",
+            "stations": [
+                "WKS", "MOS", "HEO", "TSH", "SHM", "CIO", "STW", "CKT",
+                "TAW", "HIK", "DIH", "KAT", "SUW", "TKW", "HOM", "HUH",
+                "ETS", "AUS", "MEF", "TWW", "KSR", "YUL", "LOP", "TIS",
+                "SIH", "TUM"
+            ]
+        },
+        "Tung Chung": {
+            "code": "TCL",
+            "stations": [
+                "HOK", "KOW", "OLY", "NAC", "LAK", "TSY", "SUN", "TUC"
+            ]
+        }
+    },
+    "MTR_STATIONS": {
+        "ADM": "Admiralty", "AIR": "Airport", "AUS": "Austin", "AWE": "AsiaWorld-Expo",
+        "CAB": "Causeway Bay", "CEN": "Central", "CHH": "Choi Hung", "CHW": "Chai Wan",
+        "CIO": "City One", "CKT": "Che Kung Temple", "CSW": "Cheung Sha Wan", "DIH": "Diamond Hill",
+        "DIS": "Disneyland Resort", "ETS": "East Tsim Sha Tsui", "EXC": "Exhibition Centre",
+        "FAN": "Fanling", "FOH": "Fortress Hill", "FOT": "Fo Tan", "HAH": "Hang Hau",
+        "HEO": "Heng On", "HFC": "Heng Fa Chuen", "HIK": "Hin Keng", "HKU": "HKU",
+        "HOK": "Hong Kong", "HOM": "Ho Man Tin", "HUH": "Hung Hom", "JOR": "Jordan",
+        "KAT": "Kai Tak", "KET": "Kennedy Town", "KOB": "Kowloon Bay", "KOT": "Kowloon Tong",
+        "KOW": "Kowloon", "KSR": "Kam Sheung Road", "KWF": "Kwai Fong", "KWH": "Kwai Hing",
+        "KWT": "Kwun Tong", "LAK": "Lai King", "LAT": "Lam Tin", "LCK": "Lai Chi Kok",
+        "LET": "Lei Tung", "LHP": "LOHAS Park", "LMC": "Lok Ma Chau", "LOF": "Lok Fu",
+        "LOP": "Long Ping", "LOW": "Lo Wu", "MEF": "Mei Foo", "MKK": "Mong Kok East",
+        "MOK": "Mong Kok", "MOS": "Ma On Shan", "NAC": "Nam Cheong", "NOP": "North Point",
+        "NTK": "Ngau Tau Kok", "OCP": "Ocean Park", "OLY": "Olympic", "POA": "Po Lam",
+        "PRE": "Prince Edward", "QUB": "Quarry Bay", "RAC": "Racecourse", "SHM": "Shek Mun",
+        "SHS": "Sheung Shui", "SHT": "Sha Tin", "SHW": "Sheung Wan", "SIH": "Siu Hong",
+        "SKM": "Shek Kip Mei", "SKW": "Shau Kei Wan", "SOH": "South Horizons", "SSP": "Sham Shui Po",
+        "STW": "Sha Tin Wai", "SUN": "Sunny Bay", "SUW": "Sung Wong Toi", "SWH": "Sai Wan Ho",
+        "SYP": "Sai Ying Pun", "TAK": "Tai Koo", "TAP": "Tai Po Market", "TAW": "Tai Wai",
+        "TIH": "Tin Hau", "TIK": "Tiu Keng Leng", "TIS": "Tin Shui Wai", "TKO": "Tseung Kwan O",
+        "TKW": "To Kwa Wan", "TML": "Tuen Mun", "TSH": "Tai Shui Hang", "TST": "Tsim Sha Tsui",
+        "TSW": "Tsuen Wan", "TSY": "Tsing Yi", "TUC": "Tung Chung", "TUM": "Tuen Mun",
+        "TWO": "Tai Wo", "TWH": "Tai Wo Hau", "TWW": "Tsuen Wan West", "UNI": "University",
+        "WAC": "Wan Chai", "WCH": "Wong Chuk Hang", "WHA": "Whampoa", "WKS": "Wu Kai Sha",
+        "WTS": "Wong Tai Sin", "YAT": "Yau Tong", "YMT": "Yau Ma Tei", "YUL": "Yuen Long"
+    }
+}
