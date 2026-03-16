@@ -41,7 +41,7 @@ This CLI application works by fetching real-time Estimated Time of Arrival (ETA)
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/your-repo-name.git
+    git clone https://github.com/herolch07/int2067_eta_system.git
     cd your-repo-name
     ```
 
