@@ -16,6 +16,16 @@ Built with Python, this tool provides a pure-text interface that is perfect for 
 - **User-Friendly**: Includes loading spinners for network requests and clear "To [Destination]" formats.
 - **Robust and Lightweight**: Built with standard Python libraries for maximum compatibility and speed.
 
+## How It Works
+
+This CLI application works by fetching real-time Estimated Time of Arrival (ETA) data directly from the official public transport APIs provided by KMB, Citybus, GMB, and MTR.
+
+1.  **API Clients**: Dedicated Python classes (`KMBClient`, `CitybusClient`, `GMBClient`, `MTRClient`) are implemented to interact with each transport provider's specific API endpoints.
+2.  **HTTP Requests**: The underlying `BaseClient` uses the `requests` library to make HTTP GET requests to these APIs, including retry logic and session management for efficiency.
+3.  **Data Fetching**: When you select a route and stop, the application sends a request to the relevant API.
+4.  **Data Processing**: The API typically returns data in JSON format. The application parses this JSON response, extracts relevant information (like arrival times, destinations, remarks), and converts raw timestamps into human-readable local times and minutes remaining.
+5.  **Real-time Display**: The processed ETA data is then presented in a clean, tabular format, updating automatically at regular intervals.
+
 ## Supported Services
 
 -  Kowloon Motor Bus (KMB)
@@ -71,6 +81,17 @@ You will be presented with a main menu. Just follow the on-screen prompts:
 - To **go back** to the previous menu at any time, type `b` and press Enter.
 - To **quit** the program, type `q` and press Enter.
 - To **refresh** the ETA list manually, press Enter.
+
+## Data Sources and Attribution
+
+This project fetches real-time data from the following sources, made available by the HKSAR Government's public data portal, [DATA.GOV.HK](https://data.gov.hk/):
+
+*   **Kowloon Motor Bus (KMB)**: `data.etabus.gov.hk`
+*   **Citybus**: `rt.data.gov.hk/v2/transport/citybus`
+*   **Green Minibus (GMB)**: `data.etagmb.gov.hk`
+*   **Mass Transit Railway (MTR)**: `rt.data.gov.hk`
+
+This application is not affiliated with or endorsed by any of the transport operators or the HKSAR Government. The data is provided "as is" and its accuracy is subject to the data providers.
 
 ## License
 
