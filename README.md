@@ -5,7 +5,6 @@ A simple, fast, and user-friendly command-line interface (CLI) to get real-time 
 Built with Python, this tool provides a pure-text interface that is perfect for developers, terminal enthusiasts, or anyone who wants quick access to transport schedules without a graphical browser.
 
 ![Screenshot of a terminal running the HK Transport ETA CLI, showing the main menu for KMB, Citybus, GMB, and MTR.](https://github.com/herolch07/int2067_eta_system/blob/main/Screenshot%202026-03-16%20161834.png)  
-*(You can add a screenshot of your tool in action here)*
 
 ## Features
 
@@ -86,9 +85,9 @@ You will be presented with a main menu. Just follow the on-screen prompts:
 
 This project fetches real-time data from the following sources, made available by the HKSAR Government's public data portal, [DATA.GOV.HK](https://data.gov.hk/):
 
-*   **Kowloon Motor Bus (KMB)**: `https://data.etabus.gov.hk/`
+*   **Kowloon Motor Bus (KMB)**: `https://data.etabus.gov.hk/v1/transport/kmb/`
 *   **Citybus**: `https://rt.data.gov.hk/v2/transport/citybus/`
-*   **Green Minibus (GMB)**: `https://data.etagmb.gov.hk`
+*   **Green Minibus (GMB)**: `https://data.etagmb.gov.hk/`
 *   **Mass Transit Railway (MTR)**: `https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php`
 
 This application is not affiliated with or endorsed by any of the transport operators or the HKSAR Government. The data is provided "as is" and its accuracy is subject to the data providers.
