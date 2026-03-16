@@ -38,7 +38,6 @@ def ensure_dependencies():
                 print(f"--- Failed to install {pip_name}: {e} ---")
                 sys.exit(1)
 
-
 # ==========================================
 # 1. Imports
 # ==========================================
