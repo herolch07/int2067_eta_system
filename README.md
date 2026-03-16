@@ -64,7 +64,43 @@ This CLI application works by fetching real-time Estimated Time of Arrival (ETA)
 
 ## Usage
 
-Simply run the `main.py` script from your terminal:
+### Option 1: Pull from Docker Hub (Easiest)
+
+Pull and run directly from Docker Hub:
+
+```bash
+docker run -it --rm herolch07/hk-transport-eta:latest
+```
+
+This downloads the pre-built image and runs it immediately.
+
+---
+
+### Option 2: Build Locally
+
+If you prefer to build from source:
+
+#### Prerequisites
+
+- [Docker](https://www.docker.com/get-started/) installed on your machine
+
+#### Build the Docker Image
+
+```bash
+docker build -t hk-transport-eta .
+```
+
+#### Run the CLI
+
+```bash
+docker run -it --rm hk-transport-eta
+```
+
+#### Quick One-Liner (Build & Run)
+
+```bash
+docker build -t hk-transport-eta . && docker run -it --rm hk-transport-eta
+```
 
 ```bash
 python main.py
