@@ -86,10 +86,10 @@ You will be presented with a main menu. Just follow the on-screen prompts:
 
 This project fetches real-time data from the following sources, made available by the HKSAR Government's public data portal, [DATA.GOV.HK](https://data.gov.hk/):
 
-*   **Kowloon Motor Bus (KMB)**: `data.etabus.gov.hk`
-*   **Citybus**: `rt.data.gov.hk/v2/transport/citybus`
-*   **Green Minibus (GMB)**: `data.etagmb.gov.hk`
-*   **Mass Transit Railway (MTR)**: `rt.data.gov.hk`
+*   **Kowloon Motor Bus (KMB)**: `https://data.etabus.gov.hk/`
+*   **Citybus**: `https://rt.data.gov.hk/v2/transport/citybus/`
+*   **Green Minibus (GMB)**: `https://data.etagmb.gov.hk`
+*   **Mass Transit Railway (MTR)**: `https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php`
 
 This application is not affiliated with or endorsed by any of the transport operators or the HKSAR Government. The data is provided "as is" and its accuracy is subject to the data providers.
 
