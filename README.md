@@ -128,6 +128,10 @@ This project fetches real-time data from the following sources, made available b
 
 This application is not affiliated with or endorsed by any of the transport operators or the HKSAR Government. The data is provided "as is" and its accuracy is subject to the data providers.
 
+## Author
+
+**Hero Lam** ([@herolch07](https://github.com/herolch07))
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
