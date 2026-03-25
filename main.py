@@ -13,30 +13,58 @@ Features:
 """
 
 # ==========================================
-# 0. Environment Auto-Setup 
+# 0. Environment Auto-Setup
 # ==========================================
 def ensure_dependencies():
-    #check and install required libraries if not present
+    """Check and install required libraries if not present."""
     required = {
         "requests": "requests",
         "tabulate": "tabulate"
     }
-    
+
     import importlib
     import subprocess
-    
+
+    missing_libs = []
     for lib_name, pip_name in required.items():
         try:
             importlib.import_module(lib_name)
         except ImportError:
-            print(f"--- Missing library: {pip_name}. Installing now... ---")
-            try:
-                # use sys.executable to ensure we are installing to the correct Python environment
-                subprocess.check_call([sys.executable, "-m", "pip", "install", pip_name])
-                print(f"--- {pip_name} installed successfully! ---")
-            except Exception as e:
-                print(f"--- Failed to install {pip_name}: {e} ---")
-                sys.exit(1)
+            missing_libs.append(pip_name)
+
+    if not missing_libs:
+        return True
+
+    print("\nMissing required libraries:")
+    for lib in missing_libs:
+        print(f"  - {lib}")
+
+    print("\nOptions:")
+    print("  1. Auto-install missing libraries now")
+    print("  2. Exit and install manually (pip install -r requirements.txt)")
+
+    while True:
+        choice = input("\nSelect (1/2): ").strip()
+        if choice == "2":
+            print("\nPlease run: pip install -r requirements.txt")
+            return False
+        elif choice == "1":
+            break
+        else:
+            print("Invalid choice. Please enter 1 or 2.")
+
+    print()
+    for pip_name in missing_libs:
+        print(f"--- Installing {pip_name}... ---")
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", pip_name])
+            print(f"--- {pip_name} installed successfully! ---")
+        except Exception as e:
+            print(f"--- Failed to install {pip_name}: {e} ---")
+            print("\nPlease install manually: pip install -r requirements.txt")
+            return False
+
+    return True
 
 # ==========================================
 # 1. Imports
@@ -53,8 +81,7 @@ from pathlib import Path# For robust path handling
 from datetime import datetime, timezone, timedelta, tzinfo # Time handling
 from typing import Any, Dict, List, Optional, Tuple        # Type hinting
 
-import requests         # HTTP requests
-from tabulate import tabulate  # Table formatting
+
 
 # Set logging to only show critical errors
 logging.basicConfig(level=logging.ERROR)
@@ -620,7 +647,14 @@ def handle_mtr():
 # ==========================================
 
 def main():
-    ensure_dependencies()
+    # Check and optionally install dependencies
+    if not ensure_dependencies():
+        sys.exit(1)
+
+    # Import libraries after ensuring they are installed
+    import requests
+    from tabulate import tabulate
+
     handlers = {"1": handle_kmb, "2": handle_citybus, "3": handle_gmb, "4": handle_mtr}
     
     while True:
