@@ -117,26 +117,6 @@ You will be presented with a main menu. Just follow the on-screen prompts:
 - To **quit** the program, type `q` and press Enter.
 - To **refresh** the ETA list manually, press Enter.
 
-## Data Sources and Attribution
-
-This project fetches real-time data from the following sources, made available by the HKSAR Government's public data portal, [DATA.GOV.HK](https://data.gov.hk/):
-
-*   **Kowloon Motor Bus (KMB)**: `https://data.etabus.gov.hk/v1/transport/kmb/`
-*   **Citybus**: `https://rt.data.gov.hk/v2/transport/citybus/`
-*   **Green Minibus (GMB)**: `https://data.etagmb.gov.hk/`
-*   **Mass Transit Railway (MTR)**: `https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php`
-
-This application is not affiliated with or endorsed by any of the transport operators or the HKSAR Government. The data is provided "as is" and its accuracy is subject to the data providers.
-
-## Author
-
-**Hero Lam** ([@herolch07](https://github.com/herolch07))
-**Liu Fangrui** ([@Liu Andy](https://github.com/themereu))
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Test Cases
 
 To evaluate the application's functionality, usability, and error handling, please follow the test cases below. Run the program in your terminal using `python project.py`. 
@@ -254,3 +234,23 @@ Select Stop Sequence (1-30):
 > Input: <u>q</u>
 
 Exiting HK Transport ETA CLI. Goodbye!
+
+## Data Sources and Attribution
+
+This project fetches real-time data from the following sources, made available by the HKSAR Government's public data portal, [DATA.GOV.HK](https://data.gov.hk/):
+
+*   **Kowloon Motor Bus (KMB)**: `https://data.etabus.gov.hk/v1/transport/kmb/`
+*   **Citybus**: `https://rt.data.gov.hk/v2/transport/citybus/`
+*   **Green Minibus (GMB)**: `https://data.etagmb.gov.hk/`
+*   **Mass Transit Railway (MTR)**: `https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php`
+
+This application is not affiliated with or endorsed by any of the transport operators or the HKSAR Government. The data is provided "as is" and its accuracy is subject to the data providers.
+
+## Author
+
+**Hero Lam** ([@herolch07](https://github.com/herolch07))
+**Liu Fangrui** ([@Liu Andy](https://github.com/themereu))
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
