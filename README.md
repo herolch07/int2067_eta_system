@@ -131,7 +131,126 @@ This application is not affiliated with or endorsed by any of the transport oper
 ## Author
 
 **Hero Lam** ([@herolch07](https://github.com/herolch07))
+**Liu Fangrui** ([@Liu Andy](https://github.com/themereu))
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Test Cases
+
+To evaluate the application's functionality, usability, and error handling, please follow the test cases below. Run the program in your terminal using `python project.py`. 
+
+*Note: In the sample sessions below, the user's input is marked with an <u>underline</u>.*
+
+### Test Case 1: Standard Route Query (Happy Path)
+**Objective:** Verify that the system successfully fetches real-time ETAs from the KMB API and displays them in a formatted table.
+**Steps for Instructor:** 1. Select KMB provider (1).
+2. Enter a valid route (e.g., 1A).
+3. Select the outbound direction (1).
+4. Select a stop sequence from the list (5).
+
+**Sample Session (VS Code Output):**
+Select Provider (1: KMB, 2: Citybus, 3: GMB, 4: MTR, q: Quit)
+> Input: <u>1</u>
+
+Enter Route Number (b: Back, q: Quit)
+> Input: <u>1A</u>
+
+Select Direction:
+1. To Sau Mau Ping (Central)
+2. To Star Ferry
+> Input: <u>1</u>
+
+Select Stop Sequence (1-30):
+> Input: <u>5</u>
+
+[Loading ETAs...]
+=========================================
+Route 1A to Sau Mau Ping (Central)
+Stop: Mong Kok Railway Station
+-----------------------------------------
+ETA 1: 3 mins (14:05)
+ETA 2: 10 mins (14:12)
+ETA 3: 18 mins (14:20)
+=========================================
+Press Enter to refresh, 'b' to go back, 'q' to quit.
+
+
+### Test Case 2: Invalid Route (Error Handling)
+**Objective:** Verify that the program handles API "Not Found" errors gracefully without crashing, prompting the user to try again.
+**Steps for Instructor:** Select a provider and enter a non-existent route (e.g., 999XYZ).
+
+**Sample Session:**
+Select Provider (1: KMB, 2: Citybus, 3: GMB, 4: MTR, q: Quit)
+> Input: <u>1</u>
+
+Enter Route Number (b: Back, q: Quit)
+> Input: <u>999XYZ</u>
+
+[Loading...]
+Error: Route '999XYZ' not found. Please check the route number and try again.
+
+Enter Route Number (b: Back, q: Quit)
+> Input: <u>b</u>
+
+
+### Test Case 3: Empty Input & Out-of-Bounds (Boundary Cases)
+**Objective:** Ensure the system does not break when encountering empty inputs, incorrect data types (letters instead of numbers), or out-of-range menu selections.
+**Steps for Instructor:** 1. Press `Enter` without typing anything.
+2. Type a letter (e.g., 'A') when a number is expected.
+3. Type a number outside the valid menu range (e.g., 99).
+
+**Sample Session:**
+Select Provider (1: KMB, 2: Citybus, 3: GMB, 4: MTR, q: Quit)
+> Input: <u></u>
+Error: Input cannot be empty. Please enter a valid choice.
+
+Select Provider (1: KMB, 2: Citybus, 3: GMB, 4: MTR, q: Quit)
+> Input: <u>A</u>
+Error: Invalid selection. Please enter a number between 1 and 4, or 'q' to quit.
+
+Select Provider (1: KMB, 2: Citybus, 3: GMB, 4: MTR, q: Quit)
+> Input: <u>1</u>
+
+Enter Route Number (b: Back, q: Quit)
+> Input: <u>1A</u>
+
+Select Direction:
+1. To Sau Mau Ping (Central)
+2. To Star Ferry
+> Input: <u>99</u>
+Error: Invalid choice. Please select 1 or 2.
+
+Select Direction:
+> Input: <u>b</u>
+
+
+### Test Case 4: Navigation and Auto-Refresh (Usability)
+**Objective:** Verify that the user can seamlessly refresh the live data, return to previous menus, and safely exit the application.
+**Steps for Instructor:** From the ETA display table, press `Enter` to refresh, then type `b` to go back, and `q` to quit.
+
+**Sample Session:**
+=========================================
+Route 1A to Sau Mau Ping (Central)
+Stop: Mong Kok Railway Station
+-----------------------------------------
+ETA 1: 3 mins (14:05)
+=========================================
+Press Enter to refresh, 'b' to go back, 'q' to quit.
+> Input: <u></u>
+
+[Refreshing Data...]
+=========================================
+Route 1A to Sau Mau Ping (Central)
+Stop: Mong Kok Railway Station
+-----------------------------------------
+ETA 1: 2 mins (14:05)
+=========================================
+Press Enter to refresh, 'b' to go back, 'q' to quit.
+> Input: <u>b</u>
+
+Select Stop Sequence (1-30):
+> Input: <u>q</u>
+
+Exiting HK Transport ETA CLI. Goodbye!
