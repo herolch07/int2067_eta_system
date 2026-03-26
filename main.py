@@ -652,6 +652,7 @@ def main():
         sys.exit(1)
 
     # Import libraries after ensuring they are installed
+    global requests, tabulate
     import requests
     from tabulate import tabulate
 
