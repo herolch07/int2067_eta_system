@@ -131,30 +131,77 @@ To evaluate the application's functionality, usability, and error handling, plea
 4. Select a stop sequence from the list (5).
 
 **Sample Session (VS Code Output):**
-Select Provider (1: KMB, 2: Citybus, 3: GMB, 4: MTR, q: Quit)
+
+HK Public Transport ETA CLI (English)
+
+[1]. KMB (Kowloon Motor Bus)
+[2]. Citybus
+[3]. GMB (Green Minibus)
+[4]. MTR (Mass Transit Railway)
+[q]. Quit
+
 > Input: <u>1</u>
 
-Enter Route Number (b: Back, q: Quit)
-> Input: <u>1A</u>
+=== KMB (Kowloon Motor Bus) ===
+Enter Route No. (e.g. 74K) (Type 'b' to back, 'q' to quit):
 
-Select Direction:
-1. To Sau Mau Ping (Central)
-2. To Star Ferry
+> Input: <u>74K</u>
+
+Select Direction for Route 74K:
+1. To SAM MUN TSAI (CIRCULAR) (from TAI PO MARKET STATION) [Type 1]
+2. To SAM MUN TSAI (CIRCULAR) (from TAI PO MARKET STATION) [Type 2]
+
+Select Index (Type 'b' to back, 'q' to quit):
 > Input: <u>1</u>
 
-Select Stop Sequence (1-30):
-> Input: <u>5</u>
+Stops List:
+ 1. TAI PO MARKET STATION BUS TERMINUS (TP942) (大埔墟站巴士總站 (TP942))
+ 2. TAI PO HUI MARKET (TP286) (大埔墟街市 (TP286))
+ 3. PO HEUNG STREET TAI PO (TP300) (大埔寶鄉街 (TP300))
+ 4. KWONG FUK ROAD BBI - PO HEUNG BRIDGE (TP305) (廣福道轉車站 - 寶鄉橋 (TP305))
+ 5. TAI PO CENTRAL BUS TERMINUS (TP900) (大埔中心總站 (TP900))
+ 6. YEE NGA COURT (TP618) (怡雅苑 (TP618))
+ 7. YUE KOK (TP619) (魚角 (TP619))
+ 8. FUNG YUEN ROAD (TP620) (鳳園路 (TP620))
+ 9. HA HANG (TP621) (下坑 (TP621))
+10. DAI KWAI STREET (TP622) (大貴街 (TP622))
+11. TAI PO EAST FIRE STATION (TP623) (大埔東消防局 (TP623))
+12. THE EDUCATION UNIVERSITY OF HK (TP893) (香港教育大學 (TP893))
+13. LO FAI ROAD TAI PO (TP624) (大埔露輝路 (TP624))
+14. FORTUNE GARDEN (TP625) (雅景花園 (TP625))
+15. YU ON STREET SAM MUN TSAI (TP690) (三門仔漁安街 (TP690))
+16. SHUEN WAN TYPHOON SHELTER (TP691) (船灣避風塘 (TP691))
+17. SHA LAN ROAD (TP692) (沙欄路 (TP692))
+18. SAM MUN TSAI (TP710) (三門仔 (TP710))
+19. SHA LAN ROAD (TP711) (沙欄路 (TP711))
+20. SHUEN WAN TYPHOON SHELTER (TP712) (船灣避風塘 (TP712))
+21. YU ON STREET SAM MUN TSAI (TP713) (三門仔漁安街 (TP713))
+22. FORTUNE GARDEN (TP732) (雅景花園 (TP732))
+23. LO FAI ROAD TAI PO (TP733) (大埔露輝路 (TP733))
+24. TAI PO INDUSTRIAL ESTATE (TP734) (大埔工業邨 (TP734))
+25. HA HANG (TP735) (下坑 (TP735))
+26. DAI FAT STREET TAI PO (TP736) (大埔大發街 (TP736))
+27. YUE KOK (TP737) (魚角 (TP737))
+28. KAU YAN COLLEGE (TP738) (救恩書院 (TP738))
+29. YEE NGA COURT (TP739) (怡雅苑 (TP739))
+30. TAI PO CENTRAL BUS TERMINUS (TP909) (大埔中心總站 (TP909))
+31. ON CHEUNG ROAD TAI PO (TP537) (大埔安祥路 (TP537))
+32. KWONG FUK ROAD BBI (TP564) (廣福道轉車站 (TP564))
+33. WAN TAU STREET TAI PO (TP590) (大埔運頭街 (TP590))
+34. TAI PO MARKET (TP591) (大埔墟 (TP591))
+35. TAI PO MARKET STATION BUS TERMINUS (TP935) (大埔墟站巴士總站 (TP935))
+36. TAI PO MARKET STATION BUS TERMINUS (TP942) (大埔墟站巴士總站 (TP942))
 
-[Loading ETAs...]
-=========================================
-Route 1A to Sau Mau Ping (Central)
-Stop: Mong Kok Railway Station
------------------------------------------
-ETA 1: 3 mins (14:05)
-ETA 2: 10 mins (14:12)
-ETA 3: 18 mins (14:20)
-=========================================
-Press Enter to refresh, 'b' to go back, 'q' to quit.
+Enter Stop Sequence Number (Type 'b' to back, 'q' to quit):
+> Input: <u>1</u>
+
+======== [74K] @ TAI PO MARKET STATION BUS TERMINUS (TP942) (大埔墟站巴士總站 (TP942)) ======== (19:40:20)
+Route  -------  Destination              -------------------------Time        -----Min  Remark
+
+74K ---------- SAM MUN TSAI (CIRCULAR)  20:00:00     20     -Scheduled Bus
+74K -----------SAM MUN TSAI (CIRCULAR)  20:30:00     50  -Scheduled Bus
+
+Press ENTER to refresh, 'b' to back, 'q' to quit:
 
 
 ### Test Case 2: Invalid Route (Error Handling)
@@ -162,17 +209,31 @@ Press Enter to refresh, 'b' to go back, 'q' to quit.
 **Steps for Instructor:** Select a provider and enter a non-existent route (e.g., 999XYZ).
 
 **Sample Session:**
-Select Provider (1: KMB, 2: Citybus, 3: GMB, 4: MTR, q: Quit)
+
+ HK Public Transport ETA CLI (English)
+
+[1]. KMB (Kowloon Motor Bus)
+[2]. Citybus
+[3]. GMB (Green Minibus)
+[4]. MTR (Mass Transit Railway)
+[q]. Quit
 > Input: <u>1</u>
 
-Enter Route Number (b: Back, q: Quit)
+=== KMB (Kowloon Motor Bus) ===
+
+Enter Route No. (e.g. 74K) (Type 'b' to back, 'q' to quit):
 > Input: <u>999XYZ</u>
 
-[Loading...]
-Error: Route '999XYZ' not found. Please check the route number and try again.
+Route not found.
 
-Enter Route Number (b: Back, q: Quit)
-> Input: <u>b</u>
+ HK Public Transport ETA CLI (English)
+[1]. KMB (Kowloon Motor Bus)
+[2]. Citybus
+[3]. GMB (Green Minibus)
+[4]. MTR (Mass Transit Railway)
+[q]. Quit
+
+Select:
 
 
 ### Test Case 3: Empty Input & Out-of-Bounds (Boundary Cases)
@@ -182,58 +243,152 @@ Enter Route Number (b: Back, q: Quit)
 3. Type a number outside the valid menu range (e.g., 99).
 
 **Sample Session:**
-Select Provider (1: KMB, 2: Citybus, 3: GMB, 4: MTR, q: Quit)
+HK Public Transport ETA CLI (English)
+
+[1]. KMB (Kowloon Motor Bus)
+[2]. Citybus
+[3]. GMB (Green Minibus)
+[4]. MTR (Mass Transit Railway)
+[q]. Quit
+
 > Input: <u></u>
-Error: Input cannot be empty. Please enter a valid choice.
+Invalid selection.
 
-Select Provider (1: KMB, 2: Citybus, 3: GMB, 4: MTR, q: Quit)
+ HK Public Transport ETA CLI (English)
+
+[1]. KMB (Kowloon Motor Bus)
+[2]. Citybus
+[3]. GMB (Green Minibus)
+[4]. MTR (Mass Transit Railway)
+[q]. Quit
+
+Select:
+
 > Input: <u>A</u>
-Error: Invalid selection. Please enter a number between 1 and 4, or 'q' to quit.
+Invalid selection.
 
-Select Provider (1: KMB, 2: Citybus, 3: GMB, 4: MTR, q: Quit)
+ HK Public Transport ETA CLI (English)
+
+[1]. KMB (Kowloon Motor Bus)
+[2]. Citybus
+[3]. GMB (Green Minibus)
+[4]. MTR (Mass Transit Railway)
+[q]. Quit
+
+Select:
 > Input: <u>1</u>
 
-Enter Route Number (b: Back, q: Quit)
+=== KMB (Kowloon Motor Bus) ===
+
+Enter Route No. (e.g. 74K) (Type 'b' to back, 'q' to quit):
 > Input: <u>1A</u>
 
-Select Direction:
-1. To Sau Mau Ping (Central)
-2. To Star Ferry
+Select Direction for Route 1A:
+1. To STAR FERRY (from SAU MAU PING (CENTRAL)) [Type 1]
+2. To SAU MAU PING (CENTRAL) (from STAR FERRY) [Type 1]
+
+Select Index (Type 'b' to back, 'q' to quit):
 > Input: <u>99</u>
-Error: Invalid choice. Please select 1 or 2.
 
-Select Direction:
+Please enter a number between 1 and 2.
+Select Index (Type 'b' to back, 'q' to quit):
 > Input: <u>b</u>
+HK Public Transport ETA CLI (English)
 
+[1]. KMB (Kowloon Motor Bus)
+[2]. Citybus
+[3]. GMB (Green Minibus)
+[4]. MTR (Mass Transit Railway)
+[q]. Quit
+
+Select:
 
 ### Test Case 4: Navigation and Auto-Refresh (Usability)
 **Objective:** Verify that the user can seamlessly refresh the live data, return to previous menus, and safely exit the application.
 **Steps for Instructor:** From the ETA display table, press `Enter` to refresh, then type `b` to go back, and `q` to quit.
 
-**Sample Session:**
-=========================================
-Route 1A to Sau Mau Ping (Central)
-Stop: Mong Kok Railway Station
------------------------------------------
-ETA 1: 3 mins (14:05)
-=========================================
-Press Enter to refresh, 'b' to go back, 'q' to quit.
-> Input: <u></u>
+HK Public Transport ETA CLI (English)
 
-[Refreshing Data...]
-=========================================
-Route 1A to Sau Mau Ping (Central)
-Stop: Mong Kok Railway Station
------------------------------------------
-ETA 1: 2 mins (14:05)
-=========================================
-Press Enter to refresh, 'b' to go back, 'q' to quit.
-> Input: <u>b</u>
+[1]. KMB (Kowloon Motor Bus)
+[2]. Citybus
+[3]. GMB (Green Minibus)
+[4]. MTR (Mass Transit Railway)
+[q]. Quit
 
-Select Stop Sequence (1-30):
+Select:
+
+Press Enter to refresh, 'b' to go back, 'q' to quit.
+> Input: <u>1</u>
+
+=== KMB (Kowloon Motor Bus) ===
+
+Enter Route No. (e.g. 74K) (Type 'b' to back, 'q' to quit): 
+> Input: <u>1A</u>
+
+Select Direction for Route 1A:
+1. To STAR FERRY (from SAU MAU PING (CENTRAL)) [Type 1]
+2. To SAU MAU PING (CENTRAL) (from STAR FERRY) [Type 1]
+
+Select Index (Type 'b' to back, 'q' to quit):
+> Input: <u>1</u>
+
+Stops List:
+ 1. SAU MAU PING (CENTRAL) (KT975) (中秀茂坪 (KT975))
+ 2. SAU ON HOUSE (KT390) (秀安樓 (KT390))
+ 3. SAU MING HOUSE (KT393) (秀明樓 (KT393))
+ 4. LEUNG SHEK CHEE COLLEGE (KT512) (梁式芝書院 (KT512))
+ 5. HIU LAI COURT (KT513) (曉麗苑 (KT513))
+ 6. CHEUNG WO COURT (KT533) (祥和苑 (KT533))
+ 7. WO LOK ESTATE (KT537) (和樂邨 (KT537))
+ 8. YUE MAN SQUARE (KT557) (裕民坊 (KT557))
+ 9. KWUN TONG BBI - MILLENNIUM CITY (KT637) (觀塘轉車站 - 創紀之城 (KT637))
+10. TING FU STREET, KWUN TONG (KT646) (觀塘定富街 (KT646))
+11. LOWER NGAU TAU KOK ESTATE (KT654) (牛頭角下邨 (KT654))
+12. TELFORD GARDENS (KT657) (德福花園 (KT657))
+13. KOWLOON BAY  STATION (KT671) (九龍灣站 (KT671))
+14. KAI YIP ESTATE (KT683) (啟業邨 (KT683))
+15. RICHLAND GARDENS (WT692) (麗晶花園 (WT692))
+16. RHYTHM GARDEN (WT695) (采頤花園 (WT695))
+17. THE LATITUDE (WT698) (譽．港灣 (WT698))
+18. KOWLOON CITY BBI - REGAL ORIENTAL HOTEL (KC709) (九龍城轉車站-富豪東方酒店)
+19. HAU WONG ROAD (KC735) (侯王道 (KC735))
+20. LA SALLE ROAD (KC738) (喇沙利道 (KC738))
+21. EARL STREET (KC740) (伯爵街 (KC740))
+22. KNIGHT STREET (KC742) (勵德街 (KC742))
+23. DIOCESAN BOYS' SCHOOL, PRINCE EDWARD ROAD WEST (拔萃男書院,太子道西 (KC743))
+24. HEEP WOH PRIMARY SCHOOL, MOKO (MK750) (協和小學, MOKO (MK750))
+25. PRINCE EDWARD STATION, FLOWER MARKET (MK751) (太子站, 旺角花墟 (MK751))
+26. NELSON STREET MONG KOK (MK515) (旺角奶路臣街 (MK515))
+27. SOY STREET MONG KOK (MK523) (旺角豉油街 (MK523))
+28. WING SING LANE YAU MA TEI (YT542) (油麻地永星里 (YT542))
+29. CHEONG LOK STREET YAU MA TEI (YT552) (油麻地長樂街 (YT552))
+30. TAK SHING STREET TSIM SHA TSUI (YT555) (尖沙咀德成街 (YT555))
+31. CAMERON ROAD, KOWLOON MOSQUE (YT560) (金馬倫道,清真寺 (YT560))
+32. TSIM SHA TSUI BBI - MIDDLE ROAD (YT562) (尖沙咀轉車站 - 中間道 (YT562))
+33. HONG KONG CULTURAL CENTRE (YT634) (香港文化中心 (YT634))
+34. STAR FERRY, HARBOUR CITY (YT901) (尖沙咀碼頭,海港城 (YT901))
+
+Enter Stop Sequence Number (Type 'b' to back, 'q' to quit):
+> Input: <u>1</u>
+
+======== [1A] @ SAU MAU PING (CENTRAL) (KT975) (中秀茂坪 (KT975)) ======== (23:51:55)
+Route    Destination    Time    Min    Remark
+-------  -------------  ------  -----  -----------------------------------------
+1A       STAR FERRY     -       -      The final bus has departed from this stop
+
+Press ENTER to refresh, 'b' to back, 'q' to quit:
+
+> Press: <u>Enter</u>
+
+[1A] @ SAU MAU PING (CENTRAL) (KT975) (中秀茂坪 (KT975)) (23:56:03)
+Route    Destination    Time    Min    Remark
+
+1A       STAR FERRY     -       -      The final bus has departed from this stop
+
+Press ENTER to refresh, 'b' to back, 'q' to quit:
 > Input: <u>q</u>
 
-Exiting HK Transport ETA CLI. Goodbye!
+Bye!
 
 ## Data Sources and Attribution
 
