@@ -1,23 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Hong Kong Public Transport ETA CLI
+# ==========================================
+# Hong Kong Public Transport ETA CLI
+# ==========================================
+# Features:
+# 1. Full English UI for perfect table alignment.
+# 2. "To [Destination]" format for directions.
+# 3. Auto-refreshing ETA loop with current time.
+# 4. Loading spinners for all network actions.
+# 5. Robust error handling and clean code structure.
+# 6. Favorites and History persistence with JSON file I/O.
+# 7. Launch real-time ETA from saved favorites/history.
+# ==========================================
 
-Features:
-1. Full English UI for perfect table alignment.
-2. "To [Destination]" format for directions.
-3. Auto-refreshing ETA loop with current time.
-4. Loading spinners for all network actions.
-5. Robust error handling and clean code structure.
-6. Favorites and History persistence with JSON file I/O.
-"""
 
 # ==========================================
 # 0. Environment Auto-Setup
 # ==========================================
 def ensure_dependencies():
-    """Check and install required libraries if not present."""
+    # Check and install required libraries if not present.
     required = {
         "requests": "requests",
         "tabulate": "tabulate"
@@ -34,9 +36,11 @@ def ensure_dependencies():
         except ImportError:
             missing_libs.append(pip_name)
 
-    if not missing_libs:
+    # Return early if all dependencies are satisfied
+    if (not missing_libs):
         return True
 
+    # Show missing libraries prompt
     print("\nMissing required libraries:")
     for lib in missing_libs:
         print(f"  - {lib}")
@@ -45,16 +49,17 @@ def ensure_dependencies():
     print("  1. Auto-install missing libraries now")
     print("  2. Exit and install manually (pip install -r requirements.txt)")
 
-    while True:
+    while (True):
         choice = input("\nSelect (1/2): ").strip()
-        if choice == "2":
+        if (choice == "2"):
             print("\nPlease run: pip install -r requirements.txt")
             return False
-        elif choice == "1":
+        elif (choice == "1"):
             break
         else:
             print("Invalid choice. Please enter 1 or 2.")
 
+    # Install missing libraries
     print()
     for pip_name in missing_libs:
         print(f"--- Installing {pip_name}... ---")
@@ -70,7 +75,7 @@ def ensure_dependencies():
 
 
 # Run dependency check before importing third-party libraries
-if not ensure_dependencies():
+if (not ensure_dependencies()):
     raise SystemExit(1)
 
 
@@ -92,7 +97,6 @@ from typing import Any, Dict, List, Optional, Tuple
 import requests
 from tabulate import tabulate
 
-
 # Set logging to only show critical errors
 logging.basicConfig(level=logging.ERROR)
 
@@ -100,10 +104,12 @@ logging.basicConfig(level=logging.ERROR)
 # ==========================================
 # 2. Timezone Setup
 # ==========================================
+# Try to use zoneinfo for Hong Kong timezone, fallback to custom class
 try:
     from zoneinfo import ZoneInfo
     HKT = ZoneInfo("Asia/Hong_Kong")
 except (ImportError, Exception):
+    # Fallback: Custom Hong Kong timezone class (UTC+8)
     class HKTimeZone(tzinfo):
         def utcoffset(self, dt):
             return timedelta(hours=8)
@@ -125,25 +131,25 @@ MTR_DATA_PATH = BASE_DIR / "mtr_data.json"
 FAVORITES_PATH = BASE_DIR / "favorites.json"
 HISTORY_PATH = BASE_DIR / "history.json"
 
+# MTR line and station data loaded from JSON
 MTR_LINES = {}
 MTR_STATIONS = {}
 try:
-    with open(MTR_DATA_PATH, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-        MTR_LINES = data.get("MTR_LINES", {})
-        MTR_STATIONS = data.get("MTR_STATIONS", {})
+    if (MTR_DATA_PATH.exists()):
+        with open(MTR_DATA_PATH, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            MTR_LINES = data.get("MTR_LINES", {})
+            MTR_STATIONS = data.get("MTR_STATIONS", {})
 except (FileNotFoundError, json.JSONDecodeError) as e:
-    print(f"Error loading MTR data from {MTR_DATA_PATH}: {e}", file=sys.stderr)
+    print(f"Note: MTR data file not found or invalid at {MTR_DATA_PATH}. MTR features may be limited.", file=sys.stderr)
 
 
 # ==========================================
 # 4. Loading Animation
 # ==========================================
 class LoadingSpinner:
-    """
-    Context manager to show a rotating spinner ( | / - \\ )
-    while a blocking network task is running.
-    """
+    # Context manager to show a rotating spinner (| / - \)
+    # while a blocking network task is running.
     def __init__(self, message="Loading..."):
         self.message = message
         self.stop_running = False
@@ -157,12 +163,14 @@ class LoadingSpinner:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.stop_running = True
         self.thread.join()
+        # Clear the spinner line
         sys.stdout.write('\r' + ' ' * (len(self.message) + 10) + '\r')
         sys.stdout.flush()
 
     def _animate(self):
+        # Cycle through spinner characters
         for char in itertools.cycle(['|', '/', '-', '\\']):
-            if self.stop_running:
+            if (self.stop_running):
                 break
             sys.stdout.write(f'\r{self.message} {char}')
             sys.stdout.flush()
@@ -173,9 +181,7 @@ class LoadingSpinner:
 # 5. Base Network Client
 # ==========================================
 class BaseClient:
-    """
-    Handles all HTTP requests with retry logic and session reuse.
-    """
+    # Handles all HTTP requests with retry logic and session reuse.
     def __init__(self, base_url: str = "", timeout: int = 10, max_retries: int = 2):
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
@@ -183,14 +189,16 @@ class BaseClient:
         self.session = requests.Session()
 
     def _full_url(self, path: str) -> str:
-        if not path.startswith("http"):
+        # Construct full URL from base_url and path
+        if (not path.startswith("http")):
             return f"{self.base_url}/{path.lstrip('/')}"
         return path
 
     def get_json(self, path: str, params: Optional[Dict] = None) -> Optional[Dict]:
+        # Perform GET request with retry logic
         url = self._full_url(path)
         attempt = 0
-        while attempt <= self.max_retries:
+        while (attempt <= self.max_retries):
             try:
                 response = self.session.get(
                     url,
@@ -198,15 +206,17 @@ class BaseClient:
                     timeout=self.timeout,
                     headers={"User-Agent": "HKTransportCLI/1.0"}
                 )
-                if not response.ok:
-                    if 500 <= response.status_code < 600 and attempt < self.max_retries:
+                # Retry on server errors (5xx)
+                if (not response.ok):
+                    if (500 <= response.status_code < 600 and attempt < self.max_retries):
                         attempt += 1
                         time.sleep(1)
                         continue
                     return None
                 return response.json()
             except (requests.Timeout, requests.ConnectionError):
-                if attempt < self.max_retries:
+                # Retry on network errors
+                if (attempt < self.max_retries):
                     attempt += 1
                     time.sleep(1)
                     continue
@@ -220,11 +230,12 @@ class BaseClient:
 # 6. Helper Functions
 # ==========================================
 def parse_iso(timestamp_str: str) -> Optional[datetime]:
-    """Parses ISO timestamp string to datetime object."""
-    if not timestamp_str:
+    # Parse ISO timestamp string to datetime object.
+    if (not timestamp_str):
         return None
     try:
-        if timestamp_str.endswith("Z"):
+        # Convert 'Z' suffix to '+00:00' for Python compatibility
+        if (timestamp_str.endswith("Z")):
             timestamp_str = timestamp_str[:-1] + "+00:00"
         return datetime.fromisoformat(timestamp_str)
     except Exception:
@@ -232,25 +243,24 @@ def parse_iso(timestamp_str: str) -> Optional[datetime]:
 
 
 def minutes_until(target_time: datetime) -> int:
-    """
-    Calculates minutes remaining.
-    Uses math.ceil (Rounding Up) for a safety buffer.
-    e.g., 4m01s -> 5 min.
-    """
-    if not target_time:
+    # Calculate minutes remaining until target time.
+    # Uses math.ceil (rounding up) for a safety buffer.
+    # Example: 4m01s -> 5 min
+    if (not target_time):
         return 0
     now = datetime.now(timezone.utc)
     diff_seconds = (target_time - now).total_seconds()
 
-    if diff_seconds <= 0:
+    if (diff_seconds <= 0):
         return 0
     return math.ceil(diff_seconds / 60)
 
 
 def natural_sort_key(s: str) -> Tuple[int, str]:
-    """Sorts 'Route 10' after 'Route 2'."""
+    # Natural sort key for route numbers.
+    # Ensures 'Route 10' comes after 'Route 2'.
     match = re.match(r"(\d+)?(.*)", str(s))
-    if match:
+    if (match):
         return (int(match.group(1)) if match.group(1) else 0, match.group(2))
     return (0, str(s))
 
@@ -259,9 +269,9 @@ def natural_sort_key(s: str) -> Tuple[int, str]:
 # 6A. Persistence Helpers
 # ==========================================
 def load_json_file(path: Path, default):
-    """Load JSON data safely, returning default on error."""
+    # Load JSON data safely, returning default on error.
     try:
-        if path.exists():
+        if (path.exists()):
             with open(path, "r", encoding="utf-8") as f:
                 return json.load(f)
     except Exception as e:
@@ -270,7 +280,7 @@ def load_json_file(path: Path, default):
 
 
 def save_json_file(path: Path, data) -> bool:
-    """Save JSON data safely."""
+    # Save JSON data safely.
     try:
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
@@ -299,31 +309,33 @@ def save_history(history: List[Dict[str, Any]]) -> bool:
 
 
 def normalize_record(record: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Normalize record for duplicate comparison.
-    Ignore saved_at field when comparing.
-    """
+    # Normalize record for duplicate comparison.
+    # Remove 'saved_at' field when comparing.
     cloned = dict(record)
     cloned.pop("saved_at", None)
     return cloned
 
 
 def add_to_history(record: Dict[str, Any], limit: int = 20) -> None:
+    # Add a search record to history, maintaining a maximum limit.
     history = load_history()
     record_to_save = dict(record)
     record_to_save["saved_at"] = datetime.now(HKT).strftime("%Y-%m-%d %H:%M:%S")
 
+    # Insert at the beginning and trim to limit
     history.insert(0, record_to_save)
     history = history[:limit]
     save_history(history)
 
 
 def add_to_favorites(record: Dict[str, Any]) -> None:
+    # Add a search record to favorites if not already exists.
     favorites = load_favorites()
     normalized_new = normalize_record(record)
 
+    # Check for duplicates
     for fav in favorites:
-        if normalize_record(fav) == normalized_new:
+        if (normalize_record(fav) == normalized_new):
             print("This search is already in favorites.")
             return
 
@@ -331,19 +343,20 @@ def add_to_favorites(record: Dict[str, Any]) -> None:
     record_to_save["saved_at"] = datetime.now(HKT).strftime("%Y-%m-%d %H:%M:%S")
     favorites.append(record_to_save)
 
-    if save_favorites(favorites):
+    if (save_favorites(favorites)):
         print("Added to favorites.")
     else:
         print("Failed to save favorite.")
 
 
 def ask_save_favorite(record: Dict[str, Any]) -> None:
-    while True:
+    # Prompt user to save the current search to favorites.
+    while (True):
         choice = input("\nSave this search to favorites? (y/n): ").strip().lower()
-        if choice in ("y", "yes"):
+        if (choice in ("y", "yes")):
             add_to_favorites(record)
             return
-        elif choice in ("n", "no", ""):
+        elif (choice in ("n", "no", "")):
             return
         else:
             print("Please enter y or n.")
@@ -353,10 +366,12 @@ def ask_save_favorite(record: Dict[str, Any]) -> None:
 # 7. UI Helpers
 # ==========================================
 class GoBack(Exception):
+    # Exception to signal returning to previous menu.
     pass
 
 
 class QuitProgram(Exception):
+    # Exception to signal program termination.
     pass
 
 
@@ -364,16 +379,16 @@ NAV_HINT = " (Type 'b' to back, 'q' to quit)"
 
 
 def ask_input(prompt: str) -> str:
-    """Standardized input with blank line for readability."""
+    # Standardized input with blank line for readability.
     print()
-    while True:
+    while (True):
         try:
             user_input = input(f"{prompt}{NAV_HINT}: ").strip()
-            if user_input.lower() == 'b':
+            if (user_input.lower() == 'b'):
                 raise GoBack()
-            if user_input.lower() == 'q':
+            if (user_input.lower() == 'q'):
                 raise QuitProgram()
-            if user_input:
+            if (user_input):
                 return user_input
             print("Input cannot be empty.")
         except (KeyboardInterrupt, EOFError):
@@ -381,12 +396,12 @@ def ask_input(prompt: str) -> str:
 
 
 def ask_index(max_index: int, prompt: str = "Select Index") -> int:
-    """Standardized number selection."""
-    while True:
+    # Standardized number selection (1-based index).
+    while (True):
         index_input = ask_input(prompt)
         try:
             idx = int(index_input)
-            if 1 <= idx <= max_index:
+            if (1 <= idx <= max_index):
                 return idx
             print(f"Please enter a number between 1 and {max_index}.")
         except ValueError:
@@ -394,14 +409,14 @@ def ask_index(max_index: int, prompt: str = "Select Index") -> int:
 
 
 def wait_for_enter() -> None:
-    """Pauses execution for refresh or navigation."""
+    # Pause execution for refresh or navigation.
     print()
     command = input("Press ENTER to refresh, 'b' to back, 'q' to quit: ").strip().lower()
-    if command == "":
+    if (command == ""):
         return
-    if command == "b":
+    if (command == "b"):
         raise GoBack()
-    if command == "q":
+    if (command == "q"):
         raise QuitProgram()
 
 
@@ -409,6 +424,7 @@ def wait_for_enter() -> None:
 # 8. API Clients
 # ==========================================
 class KMBClient(BaseClient):
+    # Client for KMB (Kowloon Motor Bus) API.
     def __init__(self):
         super().__init__("https://data.etabus.gov.hk/v1/transport/kmb")
         self.stop_cache = {}
@@ -418,18 +434,20 @@ class KMBClient(BaseClient):
         return data.get("data", []) if data else []
 
     def list_stops(self, route, bound, service_type="1"):
+        # Convert bound code to API format
         bound_map = {"O": "outbound", "I": "inbound"}
         bound_str = bound_map.get(bound.upper(), bound)
         data = self.get_json(f"route-stop/{route}/{bound_str}/{service_type}")
         return sorted(data.get("data", []) if data else [], key=lambda x: int(x.get("seq", 0)))
 
     def get_stop_name(self, stop_id):
-        if stop_id in self.stop_cache:
+        # Get stop details with caching
+        if (stop_id in self.stop_cache):
             return self.stop_cache[stop_id]
 
         data = self.get_json(f"stop/{stop_id}")
         stop_data = data.get("data", {}) if data else {}
-        if stop_data:
+        if (stop_data):
             self.stop_cache[stop_id] = stop_data
         return stop_data
 
@@ -439,18 +457,20 @@ class KMBClient(BaseClient):
 
 
 class CitybusClient(BaseClient):
+    # Client for Citybus API.
     def __init__(self):
         super().__init__("https://rt.data.gov.hk/v2/transport/citybus")
         self.stop_cache = {}
 
     def get_route(self, route_no):
         data = self.get_json(f"route/CTB/{route_no}")
-        if not data:
+        if (not data):
             return None
         result = data.get("data")
-        if isinstance(result, list) and result:
+        # Handle both list and dict responses
+        if (isinstance(result, list) and result):
             return result[0]
-        if isinstance(result, dict):
+        if (isinstance(result, dict)):
             return result
         return None
 
@@ -459,12 +479,13 @@ class CitybusClient(BaseClient):
         return sorted(data.get("data", []) if data else [], key=lambda x: int(x.get("seq", 999)))
 
     def get_stop_detail(self, stop_id):
-        if stop_id in self.stop_cache:
+        # Get stop details with caching
+        if (stop_id in self.stop_cache):
             return self.stop_cache[stop_id]
 
         data = self.get_json(f"stop/{stop_id}")
         stop_data = data.get("data", {}) if data else {}
-        if stop_data:
+        if (stop_data):
             self.stop_cache[stop_id] = stop_data
         return stop_data
 
@@ -474,6 +495,7 @@ class CitybusClient(BaseClient):
 
 
 class GMBClient(BaseClient):
+    # Client for Green Minibus (GMB) API.
     def __init__(self):
         super().__init__("https://data.etagmb.gov.hk")
 
@@ -497,6 +519,7 @@ class GMBClient(BaseClient):
 
 
 class MTRClient(BaseClient):
+    # Client for MTR (Mass Transit Railway) API.
     def __init__(self):
         super().__init__("https://rt.data.gov.hk")
 
@@ -505,7 +528,7 @@ class MTRClient(BaseClient):
             "v1/transport/mtr/getSchedule.php",
             params={"line": line, "sta": station, "lang": "EN"}
         )
-        if not data or data.get("status") != 1:
+        if (not data or data.get("status") != 1):
             return {}
         schedule_data = data.get("data", {})
         key = next(iter(schedule_data.keys()), None)
@@ -513,13 +536,11 @@ class MTRClient(BaseClient):
 
 
 # ==========================================
-# 9. Display Loop and Handlers
+# 9. Logic Refactoring & Display Loop
 # ==========================================
 def display_eta_loop(header: str, eta_fetcher, data_processor, table_headers: List[str]):
-    """
-    Generic loop to display real-time ETA data in a table.
-    """
-    while True:
+    # Generic loop to display real-time ETA data in a table.
+    while (True):
         with LoadingSpinner("Refreshing..."):
             raw_data = eta_fetcher()
 
@@ -528,7 +549,7 @@ def display_eta_loop(header: str, eta_fetcher, data_processor, table_headers: Li
 
         table_data, message = data_processor(raw_data)
 
-        if table_data:
+        if (table_data):
             print(tabulate(table_data, headers=table_headers, tablefmt="simple"))
         else:
             print(f"  {message or 'No data available.'}")
@@ -536,29 +557,114 @@ def display_eta_loop(header: str, eta_fetcher, data_processor, table_headers: Li
         wait_for_enter()
 
 
+def process_kmb_eta(etas, bound, target_seq):
+    # Process KMB ETA data into table format.
+    # Filter by direction and stop sequence.
+    filtered = [
+        e for e in etas
+        if ((e.get("dir") or "").upper() == bound.upper()
+            and str(e.get("seq")) == str(target_seq))
+    ]
+    filtered.sort(key=lambda x: (int(x.get("eta_seq", 99)), x.get("eta")))
+
+    table_data = []
+    for e in filtered:
+        eta_time = parse_iso(e.get("eta"))
+        table_data.append([
+            e.get("route", ""),
+            e.get("dest_en"),
+            eta_time.astimezone(HKT).strftime("%H:%M:%S") if eta_time else "-",
+            minutes_until(eta_time) if eta_time else "-",
+            e.get("rmk_en") or ""
+        ])
+    return table_data, "No ETA info available for this stop."
+
+
+def process_citybus_eta(etas, target_dir):
+    # Process Citybus ETA data into table format.
+    # Filter by direction.
+    filtered = [e for e in etas if ((e.get("dir") or "").upper() == target_dir)]
+
+    table_data = []
+    for e in filtered:
+        eta_time = parse_iso(e.get("eta"))
+        table_data.append([
+            e.get("route", ""),
+            e.get("dest_en"),
+            eta_time.astimezone(HKT).strftime("%H:%M:%S") if eta_time else "-",
+            minutes_until(eta_time) if eta_time else "-",
+            e.get("rmk_en") or ""
+        ])
+    return table_data, "No ETA info available."
+
+
+def process_gmb_eta(data, route_input, dest_en):
+    # Process GMB ETA data into table format.
+    eta_list = data.get("eta", []) if data else []
+    table_data = []
+    for e in eta_list:
+        eta_time = parse_iso(e.get("timestamp"))
+        table_data.append([
+            route_input,
+            dest_en,
+            (eta_time or datetime.now()).astimezone(HKT).strftime("%H:%M:%S"),
+            e.get("diff", "-"),
+            e.get("remarks_en")
+        ])
+    return table_data, "No ETA info available."
+
+
+def process_mtr_data(schedule):
+    # Process MTR schedule data into table format.
+    if (not schedule):
+        return [], "No trains available."
+
+    all_trains = []
+    for direction, trains in schedule.items():
+        if (not isinstance(trains, list) or not trains):
+            continue
+
+        # Add direction header row
+        all_trains.append([f"--- To: {trains[0].get('dest')} ---", "", "", ""])
+        for t in trains:
+            all_trains.append([
+                t.get("time"),
+                MTR_STATIONS.get(t.get("dest"), t.get("dest")),
+                t.get("plat"),
+                t.get("ttnt")
+            ])
+    return all_trains, "No schedule data."
+
+
+# ==========================================
+# 9B. Handlers
+# ==========================================
 def handle_kmb():
-    """KMB Logic"""
+    # Handle KMB route search workflow.
     print("\n=== KMB (Kowloon Motor Bus) ===")
     client = KMBClient()
 
+    # Download all KMB routes
     with LoadingSpinner("Downloading KMB Route Data..."):
         routes = client.list_routes()
-    if not routes:
+    if (not routes):
         print("Failed to download KMB routes.")
         return
 
     route_input = ask_input("Enter Route No. (e.g. 74K)").upper()
-    candidates = [r for r in routes if r.get("route", "").upper() == route_input]
-    if not candidates:
+    candidates = [r for r in routes if (r.get("route", "").upper() == route_input)]
+    if (not candidates):
         print("Route not found.")
         return
 
+    # Display direction options
     print(f"\nSelect Direction for Route {route_input}:")
     for i, r in enumerate(candidates, 1):
         print(f"{i}. To {r.get('dest_en')} (from {r.get('orig_en')}) [Type {r.get('service_type')}]")
 
     selected_route = candidates[ask_index(len(candidates)) - 1]
 
+    # Fetch stops for selected route
     with LoadingSpinner("Fetching stops..."):
         stops = client.list_stops(
             selected_route['route'],
@@ -584,13 +690,14 @@ def handle_kmb():
         print("Invalid sequence.")
         return
 
-    if target_seq not in stop_map:
+    if (target_seq not in stop_map):
         print("Invalid sequence.")
         return
 
     stop_info = stop_map[target_seq]
     header = f"======== [{route_input}] @ {stop_info['name']} ========"
 
+    # Save search record
     search_record = {
         "mode": "KMB",
         "label": f"KMB {route_input} @ {stop_info['name']} -> {selected_route.get('dest_en')}",
@@ -608,26 +715,7 @@ def handle_kmb():
     add_to_history(search_record)
     ask_save_favorite(search_record)
 
-    def process_kmb_eta(etas):
-        filtered = [
-            e for e in etas
-            if (e.get("dir") or "").upper() == selected_route['bound'].upper()
-            and str(e.get("seq")) == str(target_seq)
-        ]
-        filtered.sort(key=lambda x: (int(x.get("eta_seq", 99)), x.get("eta")))
-
-        table_data = []
-        for e in filtered:
-            eta_time = parse_iso(e.get("eta"))
-            table_data.append([
-                e.get("route", ""),
-                e.get("dest_en"),
-                eta_time.astimezone(HKT).strftime("%H:%M:%S") if eta_time else "-",
-                minutes_until(eta_time) if eta_time else "-",
-                e.get("rmk_en") or ""
-            ])
-        return table_data, "No ETA info available for this stop."
-
+    # Start ETA display loop
     display_eta_loop(
         header=header,
         eta_fetcher=lambda: client.get_eta(
@@ -635,13 +723,13 @@ def handle_kmb():
             selected_route['route'],
             selected_route.get('service_type', '1')
         ),
-        data_processor=process_kmb_eta,
+        data_processor=lambda etas: process_kmb_eta(etas, selected_route['bound'], target_seq),
         table_headers=["Route", "Destination", "Time", "Min", "Remark"]
     )
 
 
 def handle_citybus():
-    """Citybus Logic"""
+    # Handle Citybus route search workflow.
     print("\n=== Citybus ===")
     client = CitybusClient()
 
@@ -649,7 +737,7 @@ def handle_citybus():
 
     with LoadingSpinner("Finding route..."):
         route_info = client.get_route(route_input)
-    if not route_info:
+    if (not route_info):
         print("Route not found.")
         return
 
@@ -660,8 +748,9 @@ def handle_citybus():
     print(f"1. To {dest} (from {orig})")
     print(f"2. To {orig} (from {dest})")
 
-    direction = "inbound" if ask_index(2) == 2 else "outbound"
+    direction = "inbound" if (ask_index(2) == 2) else "outbound"
 
+    # Fetch stops for selected direction
     with LoadingSpinner("Fetching stops..."):
         stops = client.get_stops(route_input, direction)
 
@@ -682,14 +771,15 @@ def handle_citybus():
         print("Invalid stop.")
         return
 
-    selected_stop = next((x for x in stop_list if x["seq"] == target_seq), None)
-    if not selected_stop:
+    selected_stop = next((x for x in stop_list if (x["seq"] == target_seq)), None)
+    if (not selected_stop):
         print("Invalid stop.")
         return
 
     header = f"======== [{route_input}] @ {selected_stop['name']} ========"
-    target_dir = "I" if direction == "inbound" else "O"
+    target_dir = "I" if (direction == "inbound") else "O"
 
+    # Save search record
     search_record = {
         "mode": "Citybus",
         "label": f"Citybus {route_input} @ {selected_stop['name']} -> {dest if direction == 'outbound' else orig}",
@@ -706,33 +796,21 @@ def handle_citybus():
     add_to_history(search_record)
     ask_save_favorite(search_record)
 
-    def process_citybus_eta(etas):
-        filtered = [e for e in etas if (e.get("dir") or "").upper() == target_dir]
-        table_data = []
-        for e in filtered:
-            eta_time = parse_iso(e.get("eta"))
-            table_data.append([
-                e.get("route", ""),
-                e.get("dest_en"),
-                eta_time.astimezone(HKT).strftime("%H:%M:%S") if eta_time else "-",
-                minutes_until(eta_time) if eta_time else "-",
-                e.get("rmk_en") or ""
-            ])
-        return table_data, "No ETA info available."
-
+    # Start ETA display loop
     display_eta_loop(
         header=header,
         eta_fetcher=lambda: client.get_eta(selected_stop['id'], route_input),
-        data_processor=process_citybus_eta,
+        data_processor=lambda etas: process_citybus_eta(etas, target_dir),
         table_headers=["Route", "Destination", "Time", "Min", "Remark"]
     )
 
 
 def handle_gmb():
-    """GMB Logic"""
+    # Handle Green Minibus route search workflow.
     print("\n=== Green Minibus ===")
     client = GMBClient()
 
+    # Select region
     print("1. Hong Kong Island (HKI)")
     print("2. Kowloon (KLN)")
     print("3. New Territories (NT)")
@@ -740,7 +818,7 @@ def handle_gmb():
 
     with LoadingSpinner(f"Downloading {region} routes..."):
         routes = client.get_routes(region)
-    if not routes:
+    if (not routes):
         print("No routes found for this region.")
         return
 
@@ -748,10 +826,11 @@ def handle_gmb():
 
     with LoadingSpinner("Fetching details..."):
         details = client.get_details(region, route_input)
-    if not details:
+    if (not details):
         print("Details not found.")
         return
 
+    # Display route variants
     print("\nSelect Route Variant:")
     for i, d in enumerate(details, 1):
         print(f"{i}. {d.get('description_en')}")
@@ -759,20 +838,22 @@ def handle_gmb():
     selected_variant = details[ask_index(len(details)) - 1]
 
     directions = selected_variant.get("directions", [])
-    if not directions:
+    if (not directions):
         print("No directions available.")
         return
 
+    # Display direction options
     print("\nSelect Direction:")
     for i, d in enumerate(directions, 1):
         print(f"{i}. To {d.get('dest_en')} (from {d.get('orig_en')})")
 
     selected_dir = directions[ask_index(len(directions)) - 1]
 
+    # Fetch stops
     with LoadingSpinner("Fetching stops..."):
         stops = client.get_stops(selected_variant.get("route_id"), selected_dir.get("route_seq"))
 
-    if not stops:
+    if (not stops):
         print("No stops found.")
         return
 
@@ -786,14 +867,15 @@ def handle_gmb():
         print("Invalid sequence.")
         return
 
-    stop_match = next((s for s in stops if int(s.get('stop_seq')) == target_seq), None)
-    if not stop_match:
+    stop_match = next((s for s in stops if (int(s.get('stop_seq')) == target_seq)), None)
+    if (not stop_match):
         print("Invalid sequence.")
         return
 
     stop_name_display = f"{stop_match.get('name_en')} ({stop_match.get('name_tc')})"
     header = f"======== [{route_input}] @ {stop_name_display} ========"
 
+    # Save search record
     search_record = {
         "mode": "GMB",
         "label": f"GMB {route_input} @ {stop_name_display} -> {selected_dir.get('dest_en')}",
@@ -812,17 +894,7 @@ def handle_gmb():
     add_to_history(search_record)
     ask_save_favorite(search_record)
 
-    def process_gmb_eta(data):
-        eta_list = data.get("eta", []) if data else []
-        table_data = [[
-            route_input,
-            selected_dir.get('dest_en'),
-            (parse_iso(e.get("timestamp")) or datetime.now()).astimezone(HKT).strftime("%H:%M:%S"),
-            e.get("diff", "-"),
-            e.get("remarks_en")
-        ] for e in eta_list]
-        return table_data, "No ETA info available."
-
+    # Start ETA display loop
     display_eta_loop(
         header=header,
         eta_fetcher=lambda: client.get_eta(
@@ -830,19 +902,21 @@ def handle_gmb():
             selected_dir.get("route_seq"),
             target_seq
         ),
-        data_processor=process_gmb_eta,
+        data_processor=lambda data: process_gmb_eta(data, route_input, selected_dir.get('dest_en')),
         table_headers=["Route", "Destination", "Time", "Min", "Remark"]
     )
 
 
 def handle_mtr():
-    """MTR Logic"""
+    # Handle MTR schedule search workflow.
     print("\n=== MTR Next Train ===")
-    if not MTR_LINES or not MTR_STATIONS:
+    if (not MTR_LINES or not MTR_STATIONS):
         print("MTR data is not available. Please check 'mtr_data.json'.")
         return
 
     client = MTRClient()
+
+    # Display available lines
     lines = sorted(MTR_LINES.keys())
     for i, l in enumerate(lines, 1):
         print(f"{i}. {l}")
@@ -850,6 +924,7 @@ def handle_mtr():
     selected_line_key = lines[ask_index(len(lines)) - 1]
     line_info = MTR_LINES[selected_line_key]
 
+    # Display stations on selected line
     stations = line_info["stations"]
     for i, s in enumerate(stations, 1):
         print(f"{i}. {MTR_STATIONS.get(s, s)} ({s})")
@@ -859,6 +934,7 @@ def handle_mtr():
 
     header = f"======== {selected_line_key} @ {station_name} ========"
 
+    # Save search record
     search_record = {
         "mode": "MTR",
         "label": f"MTR {selected_line_key} @ {station_name}",
@@ -872,25 +948,7 @@ def handle_mtr():
     add_to_history(search_record)
     ask_save_favorite(search_record)
 
-    def process_mtr_data(schedule):
-        if not schedule:
-            return [], "No trains available."
-
-        all_trains = []
-        for direction, trains in schedule.items():
-            if not isinstance(trains, list) or not trains:
-                continue
-
-            all_trains.append([f"--- To: {trains[0].get('dest')} ---", "", "", ""])
-            for t in trains:
-                all_trains.append([
-                    t.get("time"),
-                    MTR_STATIONS.get(t.get("dest"), t.get("dest")),
-                    t.get("plat"),
-                    t.get("ttnt")
-                ])
-        return all_trains, "No schedule data."
-
+    # Start ETA display loop
     display_eta_loop(
         header=header,
         eta_fetcher=lambda: client.get_schedule(line_info["code"], selected_station_code),
@@ -900,62 +958,136 @@ def handle_mtr():
 
 
 # ==========================================
-# 9A. Favorites / History Handlers
+# 9C. Activation (Universal for Fav/History)
+# ==========================================
+def launch_record(record: Dict[str, Any]):
+    # Launch real-time ETA display from a saved record.
+    # Works for both favorites and history items.
+    mode = record.get("mode")
+    p = record.get("params", {})
+    header = f"======== [LIVE] {record.get('label')} ========"
+
+    if (mode == "KMB"):
+        client = KMBClient()
+        display_eta_loop(
+            header,
+            lambda: client.get_eta(p['stop_id'], p['route'], p['service_type']),
+            lambda etas: process_kmb_eta(etas, p['bound'], p['stop_seq']),
+            ["Route", "Destination", "Time", "Min", "Remark"]
+        )
+    elif (mode == "Citybus"):
+        client = CitybusClient()
+        target_dir = "I" if (p['direction'] == "inbound") else "O"
+        display_eta_loop(
+            header,
+            lambda: client.get_eta(p['stop_id'], p['route']),
+            lambda etas: process_citybus_eta(etas, target_dir),
+            ["Route", "Destination", "Time", "Min", "Remark"]
+        )
+    elif (mode == "GMB"):
+        client = GMBClient()
+        display_eta_loop(
+            header,
+            lambda: client.get_eta(p['route_id'], p['route_seq'], p['stop_seq']),
+            lambda data: process_gmb_eta(data, p['route'], p['dest_en']),
+            ["Route", "Destination", "Time", "Min", "Remark"]
+        )
+    elif (mode == "MTR"):
+        client = MTRClient()
+        display_eta_loop(
+            header,
+            lambda: client.get_schedule(p['line_code'], p['station_code']),
+            process_mtr_data,
+            ["Time", "Dest", "Plat", "Min"]
+        )
+
+
+# ==========================================
+# 9D. Favorites / History Handlers
 # ==========================================
 def show_favorites():
+    # Display and manage saved favorites.
     favorites = load_favorites()
-    if not favorites:
+    if (not favorites):
         print("\nNo favorites saved yet.")
         return
 
-    while True:
+    while (True):
         print("\n=== Favorites ===")
         for i, fav in enumerate(favorites, 1):
             print(f"{i}. {fav.get('label', 'Unnamed')}  [saved: {fav.get('saved_at', '-')}]")
 
         print("\nOptions:")
-        print("1. View favorite details")
-        print("2. Delete a favorite")
-        print("3. Back")
+        print("  Enter number to view real-time ETA")
+        print("  d - Delete a favorite")
+        print("  b - Back to main menu")
 
-        choice = input("\nSelect: ").strip()
+        choice = input("\nSelect: ").strip().lower()
 
-        if choice == "1":
-            idx = ask_index(len(favorites), "Enter favorite index") - 1
-            fav = favorites[idx]
-            print()
-            print(json.dumps(fav, ensure_ascii=False, indent=2))
-
-        elif choice == "2":
+        if (choice == 'b'):
+            return
+        elif (choice == 'd'):
             idx = ask_index(len(favorites), "Enter favorite index to delete") - 1
             removed = favorites.pop(idx)
-            if save_favorites(favorites):
+            if (save_favorites(favorites)):
                 print(f"Deleted favorite: {removed.get('label', 'Unnamed')}")
             else:
                 print("Failed to delete favorite.")
 
-            if not favorites:
+            if (not favorites):
                 print("No favorites saved yet.")
                 return
-
-        elif choice == "3":
-            return
         else:
-            print("Invalid selection.")
+            try:
+                idx = int(choice) - 1
+                if (0 <= idx < len(favorites)):
+                    try:
+                        launch_record(favorites[idx])
+                    except GoBack:
+                        continue
+                else:
+                    print("Invalid index.")
+            except ValueError:
+                print("Invalid input.")
 
 
 def show_history():
+    # Display and manage search history.
     history = load_history()
-    if not history:
+    if (not history):
         print("\nNo history yet.")
         return
 
-    print("\n=== Search History ===")
-    for i, item in enumerate(history, 1):
-        print(f"{i}. {item.get('label', 'Unnamed')}  [time: {item.get('saved_at', '-')}]")
+    while (True):
+        print("\n=== Search History ===")
+        for i, item in enumerate(history, 1):
+            print(f"{i}. {item.get('label', 'Unnamed')}  [time: {item.get('saved_at', '-')}]")
 
-    print("\nLast searched route:")
-    print(history[0].get("label", "Unnamed"))
+        print("\nOptions:")
+        print("  Enter number to view real-time ETA")
+        print("  c - Clear all history")
+        print("  b - Back to main menu")
+
+        choice = input("\nSelect: ").strip().lower()
+
+        if (choice == 'b'):
+            return
+        elif (choice == 'c'):
+            save_history([])
+            print("History cleared.")
+            return
+        else:
+            try:
+                idx = int(choice) - 1
+                if (0 <= idx < len(history)):
+                    try:
+                        launch_record(history[idx])
+                    except GoBack:
+                        continue
+                else:
+                    print(f"Invalid index. Please select 1-{len(history)}.")
+            except ValueError:
+                print("Invalid input.")
 
 
 # ==========================================
@@ -971,7 +1103,7 @@ def main():
         "6": show_history
     }
 
-    while True:
+    while (True):
         print("\n==================================================")
         print(" HK Public Transport ETA CLI (English)")
         print("==================================================")
@@ -985,9 +1117,9 @@ def main():
 
         try:
             user_choice = input("\nSelect: ").strip().lower()
-            if user_choice == 'q':
+            if (user_choice == 'q'):
                 raise QuitProgram()
-            if user_choice in handlers:
+            if (user_choice in handlers):
                 handlers[user_choice]()
             else:
                 print("Invalid selection.")
