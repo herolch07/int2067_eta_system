@@ -244,8 +244,8 @@ def parse_iso(timestamp_str: str) -> Optional[datetime]:
 
 def minutes_until(target_time: datetime) -> int:
     # Calculate minutes remaining until target time.
-    # Uses math.ceil (rounding up) for a safety buffer.
-    # Example: 4m01s -> 5 min
+    # Uses math.floor (rounding down) for a safety buffer.
+    # Example: 4m01s -> 4 min
     if (not target_time):
         return 0
     now = datetime.now(timezone.utc)
@@ -253,7 +253,7 @@ def minutes_until(target_time: datetime) -> int:
 
     if (diff_seconds <= 0):
         return 0
-    return math.ceil(diff_seconds / 60)
+    return math.floor(diff_seconds / 60)
 
 
 def natural_sort_key(s: str) -> Tuple[int, str]:
