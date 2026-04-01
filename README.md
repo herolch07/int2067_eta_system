@@ -127,7 +127,7 @@ To evaluate the application's functionality, usability, and error handling, plea
 *Note: In the sample sessions below, the user's input is marked with grey background.*
 >that's user input
 
-*Note2: All output of sample sessions in this file may affected by the size of the window, recommend to have a look on the sample photo.*
+*Note2: All output of sample sessions in this file may affected by the size of the window, recommend to have a look on the sample photo. Photo of sample be the standard of display.*
 
 ### Test Case 1: Standard Route Query (Happy Path)
 **Objective:** Verify that the system successfully fetches real-time ETAs from the KMB API and displays them in a formatted table.
@@ -480,6 +480,101 @@ Press ENTER to refresh, 'b' to back, 'q' to quit:
 Bye!
 
 ![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 4](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%204.png) 
+
+### Test Case 5: Favorite line function test
+**Objective:** Verify that the user can directly access to the ETA of the stop saved in the favorite.
+
+**Steps for Instructor:** Supposed saved at least one line in the favorite already, press 5 in the main menu to access all lines in favorite and enter the index to access it directly.
+
+HK Public Transport ETA CLI (English)
+
+[1]. KMB (Kowloon Motor Bus)
+
+[2]. Citybus
+
+[3]. GMB (Green Minibus)
+
+[4]. MTR (Mass Transit Railway)
+
+[5]. Favorites
+
+[6]. History
+
+[q]. Quit
+
+Select:
+
+Press Enter to refresh, 'b' to go back, 'q' to quit.
+> Input: <u>5</u>
+
+=== Favorites ===
+1. KMB 1A @ SAU ON HOUSE (KT390) (秀安樓 (KT390)) -> STAR FERRY  [saved: 2026-04-02 00:22:23]
+
+Options:
+  Enter number to view real-time ETA
+  d - Delete a favorite
+  b - Back to main menu
+
+Select: 1
+
+======== [LIVE] KMB 1A @ SAU ON HOUSE (KT390) (秀安樓 (KT390)) -> STAR FERRY ======== (00:22:40)
+Route    Destination    Time    Min    Remark
+
+1A       STAR FERRY     -       -      The final bus has departed from this stop
+
+Press ENTER to refresh, 'b' to back, 'q' to quit: 
+> Input: q
+
+Bye!
+
+![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 5](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%205.png) 
+
+### Test Case 6: History test
+**Objective:** Verify that the user can directly access to the ETA of the stop saved in the history.
+
+**Steps for Instructor:** Supposed saved at least one line in the history already, press 6 in the main menu to access all lines in history and enter the index to access it directly.
+
+HK Public Transport ETA CLI (English)
+
+[1]. KMB (Kowloon Motor Bus)
+
+[2]. Citybus
+
+[3]. GMB (Green Minibus)
+
+[4]. MTR (Mass Transit Railway)
+
+[5]. Favorites
+
+[6]. History
+
+[q]. Quit
+
+Select:
+
+Press Enter to refresh, 'b' to go back, 'q' to quit.
+> Input: <u>6</u>
+
+=== Search History ===
+1. KMB 1A @ SAU ON HOUSE (KT390) (秀安樓 (KT390)) -> STAR FERRY  [time: 2026-04-02 00:22:21]
+
+Options:
+  Enter number to view real-time ETA
+  c - Clear all history
+  b - Back to main menu
+
+Select: 1
+
+======== [LIVE] KMB 1A @ SAU ON HOUSE (KT390) (秀安樓 (KT390)) -> STAR FERRY ======== (00:27:15)
+Route    Destination    Time    Min    Remark
+-------  -------------  ------  -----  --------
+1A       STAR FERRY     -       -
+
+Press ENTER to refresh, 'b' to back, 'q' to quit: q
+
+Bye!
+
+![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 6](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%206.png) 
 
 ## Data Sources and Attribution
 

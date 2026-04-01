@@ -268,15 +268,17 @@ def natural_sort_key(s: str) -> Tuple[int, str]:
 # ==========================================
 # 6A. Persistence Helpers
 # ==========================================
-def load_json_file(path: Path, default):
-    # Load JSON data safely, returning default on error.
+def load_json_file(file_path: str, default_value: Any) -> Any:
+    path = Path(file_path)
+    # Check if file exists AND if it has content (size > 0)
+    if not path.exists() or path.stat().st_size == 0:
+        return default_value
     try:
-        if (path.exists()):
-            with open(path, "r", encoding="utf-8") as f:
-                return json.load(f)
+        with open(path, 'r', encoding='utf-8') as f:
+            return json.load(f)
     except Exception as e:
-        logging.error(f"Failed to load {path}: {e}", exc_info=True)
-    return default
+        # If the file is corrupted, return the empty list/default instead of crashing
+        return default_value
 
 
 def save_json_file(path: Path, data) -> bool:
