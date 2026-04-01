@@ -639,7 +639,184 @@ Options:
 Select: 
 > Input: b
 
-![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 7](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%207.png) 
+### Test Case 8: History test(boundary case)
+**Objective:** Verify that is only last 20 search history can be saved in the history
+
+**Steps for Instructor:**  supposed user had 20 search history, and search one more new.
+
+HK Public Transport ETA CLI (English)
+
+[1]. KMB (Kowloon Motor Bus)
+
+[2]. Citybus
+
+[3]. GMB (Green Minibus)
+
+[4]. MTR (Mass Transit Railway)
+
+[5]. Favorites
+
+[6]. History
+
+[q]. Quit
+
+Select:
+
+Press Enter to refresh, 'b' to go back, 'q' to quit.
+> Input: <u>6</u>
+
+=== Search History ===
+1. GMB 2 @ Hong Kong Station Minibus Terminus (香港站小巴總站) -> Old Peak Road (Circular)  [time: 2026-04-02 00:49:54]
+2. GMB 37M @ Wong Tai Sin Public Light Bus (Scheduled) Service Terminus (黃大仙公共小型巴士(專線)服務總站) -> Tsz Man Estate(Circular)  [time: 2026-04-02 00:49:09]
+3. Citybus 10 @ Sai See Street, Victoria Road (西市街, 域多利道) -> North Point Ferry Pier  [time: 2026-04-02 00:48:36]
+4. MTR Tseung Kwan O @ Tiu Keng Leng  [time: 2026-04-02 00:48:12]
+5. MTR Tuen Ma @ Austin  [time: 2026-04-02 00:47:59]
+6. MTR Island @ HKU  [time: 2026-04-02 00:47:47]
+7. MTR Tuen Ma @ Austin  [time: 2026-04-02 00:47:29]
+8. MTR Tuen Ma @ Diamond Hill  [time: 2026-04-02 00:47:15]
+9. MTR Tuen Ma @ Siu Hong  [time: 2026-04-02 00:46:46]
+10. MTR Tuen Ma @ Ma On Shan  [time: 2026-04-02 00:46:22]
+11. MTR Tuen Ma @ Wu Kai Sha  [time: 2026-04-02 00:46:12]
+12. GMB 26 @ The Education University of Hong Kong Minibus Terminus (香港教育大學小巴總站) -> Bayshore Towers, Ma On Shan  [time: 2026-04-02 00:45:58]
+13. Citybus 55 @ Wo Tin Estate (和田邨) -> Kwun Tong Ferry Pier  [time: 2026-04-02 00:45:47]
+14. KMB 2 @ TSIM SHA TSUI BBI - MIDDLE ROAD (YT102) (尖沙咀轉車站 - 中間道 (YT102)) -> CHEUNG SHA WAN (SO UK ESTATE)  [time: 2026-04-02 00:45:29]
+15. KMB 36 @ LUK YEUNG SUN CHUEN (TW396) (綠楊新邨 (TW396)) -> LEI MUK SHUE (CIRCULAR)  [time: 2026-04-02 00:45:18]
+16. MTR Tsuen Wan @ Admiralty  [time: 2026-04-02 00:44:44]
+17. KMB 28 @ LOK NGA COURT (KT548) (樂雅苑 (KT548)) -> STAR FERRY  [time: 2026-04-02 00:44:16]
+18. MTR Airport Express @ Kowloon  [time: 2026-04-02 00:44:06]
+19. GMB 26 @ Austin Road, near Austin Tower (柯士甸道, 近好兆年行) -> Kowloon Station  [time: 2026-04-02 00:43:59]
+20. MTR Disneyland Resort @ Sunny Bay  [time: 2026-04-02 00:43:46]
+
+Options:
+  Enter number to view real-time ETA
+  c - Clear all history
+  b - Back to main menu
+
+Select: 
+> Input: b
+
+==================================================
+ HK Public Transport ETA CLI (English)
+==================================================
+1. KMB (Kowloon Motor Bus)
+2. Citybus
+3. GMB (Green Minibus)
+4. MTR (Mass Transit Railway)
+5. Favorites
+6. History
+q. Quit
+
+Select: 
+>Input: 1
+
+=== KMB (Kowloon Motor Bus) ===
+
+Enter Route No. (e.g. 74K) (Type 'b' to back, 'q' to quit): 
+> Input: 74k
+
+Select Direction for Route 74K:
+1. To SAM MUN TSAI (CIRCULAR) (from TAI PO MARKET STATION) [Type 1]
+2. To SAM MUN TSAI (CIRCULAR) (from TAI PO MARKET STATION) [Type 2]
+
+Select Index (Type 'b' to back, 'q' to quit): 
+>Input: 1
+
+Stops List:
+ 1. TAI PO MARKET STATION BUS TERMINUS (TP942) (大埔墟站巴士總站 (TP942))
+ 2. TAI PO HUI MARKET (TP286) (大埔墟街市 (TP286))
+ 3. PO HEUNG STREET TAI PO (TP300) (大埔寶鄉街 (TP300))
+ 4. KWONG FUK ROAD BBI - PO HEUNG BRIDGE (TP305) (廣福道轉車站 - 寶鄉橋 (TP305))
+ 5. TAI PO CENTRAL BUS TERMINUS (TP900) (大埔中心總站 (TP900))
+ 6. YEE NGA COURT (TP618) (怡雅苑 (TP618))
+ 7. YUE KOK (TP619) (魚角 (TP619))
+ 8. FUNG YUEN ROAD (TP620) (鳳園路 (TP620))
+ 9. HA HANG (TP621) (下坑 (TP621))
+10. DAI KWAI STREET (TP622) (大貴街 (TP622))
+11. TAI PO EAST FIRE STATION (TP623) (大埔東消防局 (TP623))
+12. THE EDUCATION UNIVERSITY OF HK (TP893) (香港教育大學 (TP893))
+13. LO FAI ROAD TAI PO (TP624) (大埔露輝路 (TP624))
+14. FORTUNE GARDEN (TP625) (雅景花園 (TP625))
+15. YU ON STREET SAM MUN TSAI (TP690) (三門仔漁安街 (TP690))
+16. SHUEN WAN TYPHOON SHELTER (TP691) (船灣避風塘 (TP691))
+17. SHA LAN ROAD (TP692) (沙欄路 (TP692))
+18. SAM MUN TSAI (TP710) (三門仔 (TP710))
+19. SHA LAN ROAD (TP711) (沙欄路 (TP711))
+20. SHUEN WAN TYPHOON SHELTER (TP712) (船灣避風塘 (TP712))
+21. YU ON STREET SAM MUN TSAI (TP713) (三門仔漁安街 (TP713))
+22. FORTUNE GARDEN (TP732) (雅景花園 (TP732))
+23. LO FAI ROAD TAI PO (TP733) (大埔露輝路 (TP733))
+24. TAI PO INDUSTRIAL ESTATE (TP734) (大埔工業邨 (TP734))
+25. HA HANG (TP735) (下坑 (TP735))
+26. DAI FAT STREET TAI PO (TP736) (大埔大發街 (TP736))
+27. YUE KOK (TP737) (魚角 (TP737))
+28. KAU YAN COLLEGE (TP738) (救恩書院 (TP738))
+29. YEE NGA COURT (TP739) (怡雅苑 (TP739))
+30. TAI PO CENTRAL BUS TERMINUS (TP909) (大埔中心總站 (TP909))
+31. ON CHEUNG ROAD TAI PO (TP537) (大埔安祥路 (TP537))
+32. KWONG FUK ROAD BBI (TP564) (廣福道轉車站 (TP564))
+33. WAN TAU STREET TAI PO (TP590) (大埔運頭街 (TP590))
+34. TAI PO MARKET (TP591) (大埔墟 (TP591))
+35. TAI PO MARKET STATION BUS TERMINUS (TP935) (大埔墟站巴士總站 (TP935))
+36. TAI PO MARKET STATION BUS TERMINUS (TP942) (大埔墟站巴士總站 (TP942))
+
+Enter Stop Sequence Number (Type 'b' to back, 'q' to quit): 
+>Input: 1
+
+Save this search to favorites? (y/n): 
+>Input: n
+
+======== [74K] @ TAI PO MARKET STATION BUS TERMINUS (TP942) (大埔墟站巴士總站 (TP942)) ======== (00:51:21)
+Route    Destination              Time    Min    Remark
+-------  -----------------------  ------  -----  -----------------------------------------
+74K      SAM MUN TSAI (CIRCULAR)  -       -      The final bus has departed from this stop
+
+Press ENTER to refresh, 'b' to back, 'q' to quit: 
+>Input: b
+
+==================================================
+ HK Public Transport ETA CLI (English)
+==================================================
+1. KMB (Kowloon Motor Bus)
+2. Citybus
+3. GMB (Green Minibus)
+4. MTR (Mass Transit Railway)
+5. Favorites
+6. History
+q. Quit
+
+Select: 
+>Input: 6
+
+=== Search History ===
+1. KMB 74K @ TAI PO MARKET STATION BUS TERMINUS (TP942) (大埔墟站巴士總站 (TP942)) -> SAM MUN TSAI (CIRCULAR)  [time: 2026-04-02 00:51:20]
+2. GMB 2 @ Hong Kong Station Minibus Terminus (香港站小巴總站) -> Old Peak Road (Circular)  [time: 2026-04-02 00:49:54]
+3. GMB 37M @ Wong Tai Sin Public Light Bus (Scheduled) Service Terminus (黃大仙公共小型巴士(專線)服務總站) -> Tsz Man Estate(Circular)  [time: 2026-04-02 00:49:09]
+4. Citybus 10 @ Sai See Street, Victoria Road (西市街, 域多利道) -> North Point Ferry Pier  [time: 2026-04-02 00:48:36]
+5. MTR Tseung Kwan O @ Tiu Keng Leng  [time: 2026-04-02 00:48:12]
+6. MTR Tuen Ma @ Austin  [time: 2026-04-02 00:47:59]
+7. MTR Island @ HKU  [time: 2026-04-02 00:47:47]
+8. MTR Tuen Ma @ Austin  [time: 2026-04-02 00:47:29]
+9. MTR Tuen Ma @ Diamond Hill  [time: 2026-04-02 00:47:15]
+10. MTR Tuen Ma @ Siu Hong  [time: 2026-04-02 00:46:46]
+11. MTR Tuen Ma @ Ma On Shan  [time: 2026-04-02 00:46:22]
+12. MTR Tuen Ma @ Wu Kai Sha  [time: 2026-04-02 00:46:12]
+13. GMB 26 @ The Education University of Hong Kong Minibus Terminus (香港教育大學小巴總站) -> Bayshore Towers, Ma On Shan  [time: 2026-04-02 00:45:58]
+14. Citybus 55 @ Wo Tin Estate (和田邨) -> Kwun Tong Ferry Pier  [time: 2026-04-02 00:45:47]
+15. KMB 2 @ TSIM SHA TSUI BBI - MIDDLE ROAD (YT102) (尖沙咀轉車站 - 中間道 (YT102)) -> CHEUNG SHA WAN (SO UK ESTATE)  [time: 2026-04-02 00:45:29]
+16. KMB 36 @ LUK YEUNG SUN CHUEN (TW396) (綠楊新邨 (TW396)) -> LEI MUK SHUE (CIRCULAR)  [time: 2026-04-02 00:45:18]
+17. MTR Tsuen Wan @ Admiralty  [time: 2026-04-02 00:44:44]
+18. KMB 28 @ LOK NGA COURT (KT548) (樂雅苑 (KT548)) -> STAR FERRY  [time: 2026-04-02 00:44:16]
+19. MTR Airport Express @ Kowloon  [time: 2026-04-02 00:44:06]
+20. GMB 26 @ Austin Road, near Austin Tower (柯士甸道, 近好兆年行) -> Kowloon Station  [time: 2026-04-02 00:43:59]
+
+Options:
+  Enter number to view real-time ETA
+  c - Clear all history
+  b - Back to main menu
+
+Select:
+
+![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 8](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%208.png) 
 
 ## Data Sources and Attribution
 
