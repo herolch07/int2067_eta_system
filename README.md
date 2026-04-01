@@ -576,6 +576,71 @@ Bye!
 
 ![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 6](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%206.png) 
 
+### Test Case 7: History test(boundary case)
+**Objective:** Verify that there's no error when user input invalid option.
+
+**Steps for Instructor:**  Input whatever he/she want in history function.
+
+HK Public Transport ETA CLI (English)
+
+[1]. KMB (Kowloon Motor Bus)
+
+[2]. Citybus
+
+[3]. GMB (Green Minibus)
+
+[4]. MTR (Mass Transit Railway)
+
+[5]. Favorites
+
+[6]. History
+
+[q]. Quit
+
+Select:
+
+Press Enter to refresh, 'b' to go back, 'q' to quit.
+> Input: <u>6</u>
+
+=== Search History ===
+1. KMB 1A @ SAU ON HOUSE (KT390) (秀安樓 (KT390)) -> STAR FERRY  [time: 2026-04-02 00:22:21]
+
+Options:
+  Enter number to view real-time ETA
+  c - Clear all history
+  b - Back to main menu
+
+Select: 
+> Input: 2
+
+Invalid index. Please select 1-1.
+
+=== Search History ===
+1. KMB 1A @ SAU ON HOUSE (KT390) (秀安樓 (KT390)) -> STAR FERRY  [time: 2026-04-02 00:22:21]
+
+Options:
+  Enter number to view real-time ETA
+  c - Clear all history
+  b - Back to main menu
+
+Select: 
+> Input: vv
+
+Invalid input.
+
+=== Search History ===
+1. KMB 1A @ SAU ON HOUSE (KT390) (秀安樓 (KT390)) -> STAR FERRY  [time: 2026-04-02 00:22:21]
+
+Options:
+  Enter number to view real-time ETA
+  c - Clear all history
+  b - Back to main menu
+
+Select: 
+> Input: b
+
+![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 7](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%207.png) 
+
 ## Data Sources and Attribution
 
 This project fetches real-time data from the following sources, made available by the HKSAR Government's public data portal, [DATA.GOV.HK](https://data.gov.hk/):
