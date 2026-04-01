@@ -695,9 +695,9 @@ Options:
 Select: 
 > Input: b
 
-==================================================
+
  HK Public Transport ETA CLI (English)
-==================================================
+
 1. KMB (Kowloon Motor Bus)
 2. Citybus
 3. GMB (Green Minibus)
@@ -773,9 +773,9 @@ Route    Destination              Time    Min    Remark
 Press ENTER to refresh, 'b' to back, 'q' to quit: 
 >Input: b
 
-==================================================
+
  HK Public Transport ETA CLI (English)
-==================================================
+
 1. KMB (Kowloon Motor Bus)
 2. Citybus
 3. GMB (Green Minibus)
