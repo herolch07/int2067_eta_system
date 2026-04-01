@@ -142,11 +142,15 @@ To evaluate the application's functionality, usability, and error handling, plea
 
 HK Public Transport ETA CLI (English)
 
-[1]. KMB (Kowloon Motor Bus)
-[2]. Citybus
-[3]. GMB (Green Minibus)
-[4]. MTR (Mass Transit Railway)
-[q]. Quit
+1. KMB (Kowloon Motor Bus)
+
+2. Citybus
+
+3. GMB (Green Minibus)
+
+4. MTR (Mass Transit Railway)
+
+q. Quit
 
 > Input: <u>1</u>
 
