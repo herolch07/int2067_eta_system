@@ -217,7 +217,8 @@ Press ENTER to refresh, 'b' to back, 'q' to quit:
 ![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 1](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%201.png) 
 
 ### Test Case 2: Invalid Route (Error Handling)
-**Objective:** Verify that the program handles API "Not Found" errors gracefully without crashing, prompting the user to try again.
+**Objective:** Verify that the program handles API "Not Found" errors gracefully without crashing, prompting the us
+1   er to try again.
 **Steps for Instructor:** Select a provider and enter a non-existent route (e.g., 999XYZ).
 
 **Sample Session:**
@@ -247,6 +248,7 @@ Route not found.
 
 Select:
 
+![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 2](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%202.png) 
 
 ### Test Case 3: Empty Input & Out-of-Bounds (Boundary Cases)
 **Objective:** Ensure the system does not break when encountering empty inputs, incorrect data types (letters instead of numbers), or out-of-range menu selections.
@@ -319,6 +321,8 @@ HK Public Transport ETA CLI (English)
 
 Select:
 
+![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 3](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%203.png) 
+
 ### Test Case 4: Navigation and Auto-Refresh (Usability)
 **Objective:** Verify that the user can seamlessly refresh the live data, return to previous menus, and safely exit the application.
 
@@ -348,6 +352,9 @@ Select Direction for Route 1A:
 
 Select Index (Type 'b' to back, 'q' to quit):
 > Input: <u>1</u>
+
+Save this search to favorites? (y/n):
+> Input: <u>n</u>
 
 Stops List:
  1. SAU MAU PING (CENTRAL) (KT975) (中秀茂坪 (KT975))
@@ -388,7 +395,7 @@ Stops List:
 Enter Stop Sequence Number (Type 'b' to back, 'q' to quit):
 > Input: <u>1</u>
 
-======== [1A] @ SAU MAU PING (CENTRAL) (KT975) (中秀茂坪 (KT975)) ======== (23:51:55)
+======== [1A] @ SAU MAU PING (CENTRAL) (KT975) (中秀茂坪 (KT975)) ======== (23:55:31)
 Route    Destination    Time    Min    Remark
 -------  -------------  ------  -----  -----------------------------------------
 1A       STAR FERRY     -       -      The final bus has departed from this stop
@@ -397,7 +404,7 @@ Press ENTER to refresh, 'b' to back, 'q' to quit:
 
 > Press: <u></u>
 
-[1A] @ SAU MAU PING (CENTRAL) (KT975) (中秀茂坪 (KT975)) (23:56:03)
+[1A] @ SAU MAU PING (CENTRAL) (KT975) (中秀茂坪 (KT975)) (23:55:43)
 Route    Destination    Time    Min    Remark
 
 1A       STAR FERRY     -       -      The final bus has departed from this stop
@@ -406,6 +413,8 @@ Press ENTER to refresh, 'b' to back, 'q' to quit:
 > Input: <u>q</u>
 
 Bye!
+
+![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 4](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%204.png) 
 
 ## Data Sources and Attribution
 
