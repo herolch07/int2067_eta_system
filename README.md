@@ -142,15 +142,19 @@ To evaluate the application's functionality, usability, and error handling, plea
 
 HK Public Transport ETA CLI (English)
 
-1. KMB (Kowloon Motor Bus)
+[1]. KMB (Kowloon Motor Bus)
 
-2. Citybus
+[2]. Citybus
 
-3. GMB (Green Minibus)
+[3]. GMB (Green Minibus)
 
-4. MTR (Mass Transit Railway)
+[4]. MTR (Mass Transit Railway)
 
-q. Quit
+[5]. Favorites
+
+[6]. History
+
+[q]. Quit
 
 > Input: <u>1</u>
 
@@ -213,8 +217,8 @@ Save this search to favorites? (y/n):
 ======== [74K] @ TAI PO MARKET STATION BUS TERMINUS (TP942) (大埔墟站巴士總站 (TP942)) ======== (23:40:33)
 Route  -------  Destination              -------------------------Time        -----Min  Remark
 
-74K ---------- SAM MUN TSAI (CIRCULAR)  23:40:00     0     
-74K ---------- SAM MUN TSAI (CIRCULAR)  00:10:00     30  -Scheduled Bus
+74K  SAM MUN TSAI (CIRCULAR)  23:40:00     0     
+74K  SAM MUN TSAI (CIRCULAR)  00:10:00     30  -Scheduled Bus
 
 Press ENTER to refresh, 'b' to back, 'q' to quit:
 
@@ -227,12 +231,20 @@ Press ENTER to refresh, 'b' to back, 'q' to quit:
 
 **Sample Session:**
 
- HK Public Transport ETA CLI (English)
+HK Public Transport ETA CLI (English)
 
 [1]. KMB (Kowloon Motor Bus)
+
 [2]. Citybus
+
 [3]. GMB (Green Minibus)
+
 [4]. MTR (Mass Transit Railway)
+
+[5]. Favorites
+
+[6]. History
+
 [q]. Quit
 > Input: <u>1</u>
 
@@ -243,11 +255,20 @@ Enter Route No. (e.g. 74K) (Type 'b' to back, 'q' to quit):
 
 Route not found.
 
- HK Public Transport ETA CLI (English)
+HK Public Transport ETA CLI (English)
+
 [1]. KMB (Kowloon Motor Bus)
+
 [2]. Citybus
+
 [3]. GMB (Green Minibus)
+
 [4]. MTR (Mass Transit Railway)
+
+[5]. Favorites
+
+[6]. History
+
 [q]. Quit
 
 Select:
@@ -265,21 +286,37 @@ Select:
 HK Public Transport ETA CLI (English)
 
 [1]. KMB (Kowloon Motor Bus)
+
 [2]. Citybus
+
 [3]. GMB (Green Minibus)
+
 [4]. MTR (Mass Transit Railway)
+
+[5]. Favorites
+
+[6]. History
+
 [q]. Quit
 
 > Input: <u></u>
 
 Invalid selection.
 
- HK Public Transport ETA CLI (English)
+HK Public Transport ETA CLI (English)
 
 [1]. KMB (Kowloon Motor Bus)
+
 [2]. Citybus
+
 [3]. GMB (Green Minibus)
+
 [4]. MTR (Mass Transit Railway)
+
+[5]. Favorites
+
+[6]. History
+
 [q]. Quit
 
 Select:
@@ -288,12 +325,20 @@ Select:
 
 Invalid selection.
 
- HK Public Transport ETA CLI (English)
+HK Public Transport ETA CLI (English)
 
 [1]. KMB (Kowloon Motor Bus)
+
 [2]. Citybus
+
 [3]. GMB (Green Minibus)
+
 [4]. MTR (Mass Transit Railway)
+
+[5]. Favorites
+
+[6]. History
+
 [q]. Quit
 
 Select:
@@ -318,9 +363,17 @@ Select Index (Type 'b' to back, 'q' to quit):
 HK Public Transport ETA CLI (English)
 
 [1]. KMB (Kowloon Motor Bus)
+
 [2]. Citybus
+
 [3]. GMB (Green Minibus)
+
 [4]. MTR (Mass Transit Railway)
+
+[5]. Favorites
+
+[6]. History
+
 [q]. Quit
 
 Select:
@@ -335,9 +388,17 @@ Select:
 HK Public Transport ETA CLI (English)
 
 [1]. KMB (Kowloon Motor Bus)
+
 [2]. Citybus
+
 [3]. GMB (Green Minibus)
+
 [4]. MTR (Mass Transit Railway)
+
+[5]. Favorites
+
+[6]. History
+
 [q]. Quit
 
 Select:
