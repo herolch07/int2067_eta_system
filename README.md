@@ -4,7 +4,7 @@ A simple, fast, and user-friendly command-line interface (CLI) to get real-time 
 
 Built with Python, this tool provides a pure-text interface that is perfect for developers, terminal enthusiasts, or anyone who wants quick access to transport schedules without a graphical browser.
 
-![Screenshot of a terminal running the HK Transport ETA CLI, showing the main menu for KMB, Citybus, GMB, and MTR.](https://github.com/herolch07/int2067_eta_system/blob/main/Screenshot%202026-03-16%20161834.png)  
+![Screenshot of a terminal running the HK Transport ETA CLI, showing the main menu for KMB, Citybus, GMB, and MTR.](https://github.com/herolch07/int2067_eta_system/blob/main/main%20menu.png)  
 
 ## Features
 
@@ -14,6 +14,8 @@ Built with Python, this tool provides a pure-text interface that is perfect for 
 - **Dynamic Dependency Check**: Automatically installs required Python libraries (`requests`, `tabulate`) on first run.
 - **User-Friendly**: Includes loading spinners for network requests and clear "To [Destination]" formats.
 - **Robust and Lightweight**: Built with standard Python libraries for maximum compatibility and speed.
+- **Favorites System**: Save your most-used routes and stops to a local 'favorites.json' file for instant access without re-typing route numbers.
+- **Search History**: Automatically keeps track of your last 20 queries, allowing you to quickly jump back into a previous search.
 
 ## How It Works
 
@@ -24,6 +26,7 @@ This CLI application works by fetching real-time Estimated Time of Arrival (ETA)
 3.  **Data Fetching**: When you select a route and stop, the application sends a request to the relevant API.
 4.  **Data Processing**: The API typically returns data in JSON format. The application parses this JSON response, extracts relevant information (like arrival times, destinations, remarks), and converts raw timestamps into human-readable local times and minutes remaining.
 5.  **Real-time Display**: The processed ETA data is then presented in a clean, tabular format, updating automatically at regular intervals.
+6.  **Access shortcuts**: From the main menu, select "5" for Favorites or "6" for History to view and launch saved routes immediately.
 
 ## Supported Services
 
@@ -37,7 +40,7 @@ This CLI application works by fetching real-time Estimated Time of Arrival (ETA)
 - [Python 3.8+](https://www.python.org/downloads/)
 - `pip` (which is included with modern Python installations)
 
-## Installation
+## Installation and usage
 
 1.  **Clone the repository:**
     ```bash
@@ -64,7 +67,7 @@ This CLI application works by fetching real-time Estimated Time of Arrival (ETA)
 
 ## Usage
 
-### Option 1: Pull from Docker Hub (Easiest)
+### Option 1: Pull from Docker Hub (Recommended)
 
 Pull and run directly from Docker Hub:
 
@@ -103,7 +106,7 @@ docker build -t hk-transport-eta . && docker run -it --rm hk-transport-eta
 ```
 
 ```bash
-python main.py
+python project.py
 ```
 
 You will be presented with a main menu. Just follow the on-screen prompts:
@@ -121,16 +124,21 @@ You will be presented with a main menu. Just follow the on-screen prompts:
 
 To evaluate the application's functionality, usability, and error handling, please follow the test cases below. Run the program in your terminal using `python project.py`. 
 
-*Note: In the sample sessions below, the user's input is marked with an <u>underline</u>.*
+*Note: In the sample sessions below, the user's input is marked with grey background.*
+>that's user input
+
+*Note2: All output of sample sessions in this file may affected by the size of the window, recommend to have a look on the sample photo.*
 
 ### Test Case 1: Standard Route Query (Happy Path)
 **Objective:** Verify that the system successfully fetches real-time ETAs from the KMB API and displays them in a formatted table.
-**Steps for Instructor:** 1. Select KMB provider (1).
+
+**Steps for Instructor:** 
+1. Select KMB provider (1).
 2. Enter a valid route (e.g., 1A).
 3. Select the outbound direction (1).
 4. Select a stop sequence from the list (5).
 
-**Sample Session (VS Code Output):**
+**Sample Session (Terminal Output):**
 
 HK Public Transport ETA CLI (English)
 
@@ -195,14 +203,18 @@ Stops List:
 Enter Stop Sequence Number (Type 'b' to back, 'q' to quit):
 > Input: <u>1</u>
 
-======== [74K] @ TAI PO MARKET STATION BUS TERMINUS (TP942) (大埔墟站巴士總站 (TP942)) ======== (19:40:20)
+Save this search to favorites? (y/n):
+> Input: <u>n</u>
+
+======== [74K] @ TAI PO MARKET STATION BUS TERMINUS (TP942) (大埔墟站巴士總站 (TP942)) ======== (23:40:33)
 Route  -------  Destination              -------------------------Time        -----Min  Remark
 
-74K ---------- SAM MUN TSAI (CIRCULAR)  20:00:00     20     -Scheduled Bus
-74K -----------SAM MUN TSAI (CIRCULAR)  20:30:00     50  -Scheduled Bus
+74K ---------- SAM MUN TSAI (CIRCULAR)  23:40:00     0     
+74K ---------- SAM MUN TSAI (CIRCULAR)  00:10:00     30  -Scheduled Bus
 
 Press ENTER to refresh, 'b' to back, 'q' to quit:
 
+![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 1](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%201.png) 
 
 ### Test Case 2: Invalid Route (Error Handling)
 **Objective:** Verify that the program handles API "Not Found" errors gracefully without crashing, prompting the user to try again.
@@ -238,6 +250,7 @@ Select:
 
 ### Test Case 3: Empty Input & Out-of-Bounds (Boundary Cases)
 **Objective:** Ensure the system does not break when encountering empty inputs, incorrect data types (letters instead of numbers), or out-of-range menu selections.
+
 **Steps for Instructor:** 1. Press `Enter` without typing anything.
 2. Type a letter (e.g., 'A') when a number is expected.
 3. Type a number outside the valid menu range (e.g., 99).
@@ -252,6 +265,7 @@ HK Public Transport ETA CLI (English)
 [q]. Quit
 
 > Input: <u></u>
+
 Invalid selection.
 
  HK Public Transport ETA CLI (English)
@@ -265,6 +279,7 @@ Invalid selection.
 Select:
 
 > Input: <u>A</u>
+
 Invalid selection.
 
  HK Public Transport ETA CLI (English)
@@ -293,6 +308,7 @@ Select Index (Type 'b' to back, 'q' to quit):
 Please enter a number between 1 and 2.
 Select Index (Type 'b' to back, 'q' to quit):
 > Input: <u>b</u>
+
 HK Public Transport ETA CLI (English)
 
 [1]. KMB (Kowloon Motor Bus)
@@ -305,6 +321,7 @@ Select:
 
 ### Test Case 4: Navigation and Auto-Refresh (Usability)
 **Objective:** Verify that the user can seamlessly refresh the live data, return to previous menus, and safely exit the application.
+
 **Steps for Instructor:** From the ETA display table, press `Enter` to refresh, then type `b` to go back, and `q` to quit.
 
 HK Public Transport ETA CLI (English)
@@ -378,7 +395,7 @@ Route    Destination    Time    Min    Remark
 
 Press ENTER to refresh, 'b' to back, 'q' to quit:
 
-> Press: <u>Enter</u>
+> Press: <u></u>
 
 [1A] @ SAU MAU PING (CENTRAL) (KT975) (中秀茂坪 (KT975)) (23:56:03)
 Route    Destination    Time    Min    Remark
