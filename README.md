@@ -818,6 +818,54 @@ Select:
 
 ![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 8](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%208.png) 
 
+### Test Case 9: Disconnection test
+**Objective:** Verify that the program would not crash when the network is disconnect
+
+**Steps for Instructor:** Use the system when there's disconnect to network
+
+HK Public Transport ETA CLI (English)
+
+[1]. KMB (Kowloon Motor Bus)
+
+[2]. Citybus
+
+[3]. GMB (Green Minibus)
+
+[4]. MTR (Mass Transit Railway)
+
+[5]. Favorites
+
+[6]. History
+
+[q]. Quit
+
+Select:
+
+> Input: <u>1</u>
+
+KMB (Kowloon Motor Bus)
+Failed to download KMB routes. Please check your network connection or confirm the route is exist.
+
+HK Public Transport ETA CLI (English)
+
+[1]. KMB (Kowloon Motor Bus)
+
+[2]. Citybus
+
+[3]. GMB (Green Minibus)
+
+[4]. MTR (Mass Transit Railway)
+
+[5]. Favorites
+
+[6]. History
+
+[q]. Quit
+
+Select:
+
+![Screenshot of terminal running the HK Transport ETA CLI, showing the test case 9](https://github.com/herolch07/int2067_eta_system/blob/main/test%20case%209.png)
+
 ## Data Sources and Attribution
 
 This project fetches real-time data from the following sources, made available by the HKSAR Government's public data portal, [DATA.GOV.HK](https://data.gov.hk/):
