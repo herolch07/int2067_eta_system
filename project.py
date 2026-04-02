@@ -503,6 +503,10 @@ class GMBClient(BaseClient):
 
     def get_routes(self, region):
         data = self.get_json(f"route/{region}")
+
+        if (not data):
+            return []
+        
         routes = (data.get("data") or {}).get("routes") or []
         return sorted(routes, key=natural_sort_key)
 
@@ -619,7 +623,7 @@ def process_gmb_eta(data, route_input, dest_en):
 def process_mtr_data(schedule):
     # Process MTR schedule data into table format.
     if (not schedule):
-        return [], "No trains available."
+        return [], "No trains available. Please check your network connection."
 
     all_trains = []
     for direction, trains in schedule.items():
@@ -650,7 +654,7 @@ def handle_kmb():
     with LoadingSpinner("Downloading KMB Route Data..."):
         routes = client.list_routes()
     if (not routes):
-        print("Failed to download KMB routes.")
+        print("Failed to download KMB routes. Please check your network connection or confirm the route is exist.")
         return
 
     route_input = ask_input("Enter Route No. (e.g. 74K)").upper()
@@ -740,7 +744,7 @@ def handle_citybus():
     with LoadingSpinner("Finding route..."):
         route_info = client.get_route(route_input)
     if (not route_info):
-        print("Route not found.")
+        print("Route not found. Please check your network connection or confirm the route is exist.")
         return
 
     orig = route_info.get('orig_en')
@@ -821,7 +825,7 @@ def handle_gmb():
     with LoadingSpinner(f"Downloading {region} routes..."):
         routes = client.get_routes(region)
     if (not routes):
-        print("No routes found for this region.")
+        print("No routes found for this region. Please check your network connection or confirm the route is exist.")
         return
 
     route_input = ask_input(f"Enter Route No. (e.g. {routes[0]})").upper()
